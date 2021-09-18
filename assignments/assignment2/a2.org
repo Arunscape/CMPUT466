@@ -1,0 +1,102 @@
+#+TITLE: A2
+#+TITLE: CMPUT 466 Assignment 1
+#+AUTHOR: Arun Woosaree
+#+OPTIONS: toc:nil num:nil
+#+LATEX_HEADER: \usepackage{amsthm}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_CLASS_OPTIONS: [letterpaper]
+#+LATEX_HEADER: \theoremstyle{definition}
+#+LATEX_HEADER: \newtheorem{definition}{Definition}[section]
+
+* Problem 1
+
+** Part 1
+\[\{(x_1, x_2): x_1^2 + x_2^2 = 1\}\]
+This set is not convex.
+\begin{proof}
+Assume the set is convex.
+
+Let's draw a line from \((x_1, x_2) = (-1, 0) \) to \( (1, 0)\)
+
+These two points are part of the set because \((-1)^2 + 0^2 = 1\),
+
+and \(0^2 + (-1)^2 = 1\)
+
+
+That is,
+\(x_1 \in [-1,1], x_2 =0 \)
+
+
+If this set is convex, then any point on this line must also be in the set.
+
+Let's select the point \((0, 0)\). i.e., \(\lambda = 0.5\)
+
+This point is clearly part of the line defined above, however, it is definitely not
+in the set because \(0^2 + 0^2 = 0 \neq 1\).
+
+Therefore, we have found a counterexample that proves that this set is not convex.
+\end{proof}
+** Part 2
+\[\{(x_1, x_2): |x_1| + |x_2| \leq 1\}\]
+
+This set is convex.
+
+We begin by looking at the definition:
+
+let \(x= \begin{pmatrix}x_1\\ x_2\end{pmatrix}, y= \begin{pmatrix}y_1\\ y_2\end{pmatrix} \) be any two points in the set.
+
+Using the definition, if the set is convex, then
+
+\[\lambda x + (1-\lambda) y, \lambda \in (0, 1) \]
+
+is also in the set.
+
+Applying this definition, we get the point:
+
+\[ \begin{pmatrix}
+\lambda x_1 + (1-\lambda) y_1 \\
+\lambda x_2 + (1-\lambda) y_2
+\end{pmatrix} \]
+
+If this point is in the set, we need to prove that:
+
+\[ |\lambda x_1 + (1-\lambda) y_1| + |\lambda x_2 + (1-\lambda) y_2| \leq 1 \]
+
+\begin{proof}
+Using the triangle inequality: \(|x+y| \leq |x| + |y|\):
+
+\[ |\lambda x_1 + (1-\lambda) y_1| + |\lambda x_2 + (1-\lambda) y_2| \leq
+|\lambda x_1| + |(1-\lambda) y_1| + |\lambda x_2| + |(1-\lambda)y_2| \]
+
+
+we can factor out \(\lambda\) and \((1-\lambda)\) from the right side, because by definition, \(\lambda \in (0, 1)\):
+
+\[\lambda (|x_1| + |x_2|) + (1-\lambda) (|y_1| + |y_2|) \]
+
+Because x and y are in the set, we know that:
+\[ |x_1| + |x_2| \leq 1\]
+\[|y_1| + |y_2| \leq 1\]
+
+Because of the above and \(\lambda \in (0,1)\), we also know that:
+\[
+\lambda (\dots) + (1-\lambda) (\dots) \leq 1
+\]
+(The values where the dots are were determined to be \(\leq 1\))
+
+
+
+Thus,
+\[\lambda (|x_1| + |x_2|) + (1-\lambda) (|y_1| + |y_2|) \leq 1\]
+
+And because:
+\[ |\lambda x_1 + (1-\lambda) y_1| + |\lambda x_2 + (1-\lambda) y_2| \leq
+\lambda (|x_1| + |x_2|) + (1-\lambda) (|y_1| + |y_2|) \leq 1\]
+
+We have finally proven that:
+\[ |\lambda x_1 + (1-\lambda) y_1| + |\lambda x_2 + (1-\lambda) y_2| \leq 1 \]
+
+, which means that the set is indeed convex.
+
+\end{proof}
+
+* Problem 2

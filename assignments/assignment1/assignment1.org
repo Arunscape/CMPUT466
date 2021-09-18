@@ -1,0 +1,30 @@
+#+TITLE: CMPUT 466 Assignment 1
+#+AUTHOR: Arun Woosaree
+#+OPTIONS: toc:nil
+#+OPTIONS: num:nil
+
+
+* Part 1
+
+\[\frac{1}{m} \sum_{i=1}^m \left( x_i^2 \right) \]
+
+Because we'd like to square each \(x_i\)  and sum them, we can simply take the dot product
+of the *x* vector transposed with itself not transposed, then multiply the resulting scalar (or, 1x1 matrix) by \(\frac{1}{m}\). i.e.
+
+\[ = \frac{1}{m} \mathbf{x}^\top \cdot \mathbf{x}\]
+* Part 2
+\[\frac{1}{m} \sum_{i=1}^m \left[ \left( x_i - \mu \right)^2 \right] \]
+
+Here, we want to subtract a bias term \mu from each \(x_i\)
+
+Let's define a vector \(\mathbf{u} \in \mathbb{R}^m\) where each \(u_i = -\mu\), i.e.
+\[\mathbf{u} = \left( -\mu, -\mu, -\mu, \dots, -\mu \right)^\top \in \mathbb{R}^m\]
+
+Let's define a second vector \(\mathbf{y} \in \mathbb{R}^m\):
+\[\mathbf{y} = \mathbf{x} + \mathbf{u} \in \mathbb{R}^m\]
+
+This way, each \(y_i = x_i - \mu\).
+
+finally, we can represent the biased empirical estimate of the second-order central moment as:
+
+\[ = \frac{1}{m} \mathbf{y}^\top \cdot \mathbf{y}\]
