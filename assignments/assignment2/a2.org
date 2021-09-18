@@ -1,5 +1,4 @@
-#+TITLE: A2
-#+TITLE: CMPUT 466 Assignment 1
+#+TITLE: CMPUT 466 Assignment 2
 #+AUTHOR: Arun Woosaree
 #+OPTIONS: toc:nil num:nil
 #+LATEX_HEADER: \usepackage{amsthm}
@@ -20,7 +19,7 @@ Let's draw a line from \((x_1, x_2) = (-1, 0) \) to \( (1, 0)\)
 
 These two points are part of the set because \((-1)^2 + 0^2 = 1\),
 
-and \(0^2 + (-1)^2 = 1\)
+and \(1^2 + 0^2 = 1\)
 
 
 That is,
@@ -43,7 +42,7 @@ This set is convex.
 
 We begin by looking at the definition:
 
-let \(x= \begin{pmatrix}x_1\\ x_2\end{pmatrix}, y= \begin{pmatrix}y_1\\ y_2\end{pmatrix} \) be any two points in the set.
+let \(\mathbf{x}= \begin{pmatrix}x_1\\ x_2\end{pmatrix}, \mathbf{y}= \begin{pmatrix}y_1\\ y_2\end{pmatrix} \) be any two points in the set.
 
 Using the definition, if the set is convex, then
 
@@ -73,7 +72,7 @@ we can factor out \(\lambda\) and \((1-\lambda)\) from the right side, because b
 
 \[\lambda (|x_1| + |x_2|) + (1-\lambda) (|y_1| + |y_2|) \]
 
-Because x and y are in the set, we know that:
+Because \textbf{x} and \textbf{y} are in the set, we know that:
 \[ |x_1| + |x_2| \leq 1\]
 \[|y_1| + |y_2| \leq 1\]
 
