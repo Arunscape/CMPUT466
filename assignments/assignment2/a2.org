@@ -7,6 +7,18 @@
 #+LATEX_HEADER: \theoremstyle{definition}
 #+LATEX_HEADER: \newtheorem{definition}{Definition}[section]
 
+#+begin_src elisp :exports none
+(setq org-latex-listings 'minted
+      org-latex-packages-alist '(("" "minted"))
+      org-latex-minted-options '(("linenos" "true"))
+      org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+#+end_src
+
+#+RESULTS:
+| pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f | pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f |
+
 * Problem 1
 
 ** Part 1
@@ -99,3 +111,39 @@ We have finally proven that:
 \end{proof}
 
 * Problem 2
+\[f(x_1, x_2) = x_1^2 + x_2^2 - 4x_1x_2\]
+** a) \(x_1\) variable, \(x_2\) constant:
+\[\nabla^2 f(x_1) = \nabla 2x_1 - 4x_2\]
+\[= 2 \geq 0\]
+
+Because the second order gradient of \(f(x_1, x_2)\) is positive when \(x_2\) is constant, we have determined that
+\(f\) is convex in \(x_1\)
+** b) \(x_2\) variable, \(x_1\) constant
+\[\nabla^2 f(x_2) = \nabla 2x_2 - 4x_1\]
+\[= 2 \geq 0\]
+Because the second order gradient of \(f(x_1, x_2)\) is positive when \(x_1\) is constant, we have determined that
+\(f\) is convex in \(x_2\)
+** c) \(f: \mathbb{R}^2 \to \mathbb{R}\)
+#+begin_src python :exports both :results output
+import numpy as np
+from numpy import linalg as LA
+# in a) and b) we found the values 2 and 2 in the Hessian matrix
+# -4 is obtained because del/ (del x_1 del_x2) f(x_1, x_2) = -4
+# same for del/ (del x_2 del_x1) because the matrix is symmetric
+H = np.array([
+    [2, -4],
+    [-4, 2]
+            ])
+eigenval, eigenvec = LA.eig(H)
+print(f"eigenval: {eigenval} | eigenvector: {eigenvec} ")
+
+if any(map(lambda x: x < 0, eigenval)):
+    print("Because one of the eigenvalues are negative, we conclude that the function is not convex")
+else:
+    print("Because all of the eigenvalues are positive, we conclude that the function is convex")
+#+end_src
+
+#+RESULTS:
+: eigenval: [ 6. -2.] | eigenvector: [[ 0.70710678  0.70710678]
+:  [-0.70710678  0.70710678]]
+: Because one of the eigenvalues is negative, we conclude that the function is not convex
