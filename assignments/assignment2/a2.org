@@ -124,7 +124,7 @@ Because the second order gradient of \(f(x_1, x_2)\) is positive when \(x_2\) is
 Because the second order gradient of \(f(x_1, x_2)\) is positive when \(x_1\) is constant, we have determined that
 \(f\) is convex in \(x_2\)
 ** c) \(f: \mathbb{R}^2 \to \mathbb{R}\)
-#+begin_src python :exports both :results output
+#+begin_src python :exports both :results output verbatim
 import numpy as np
 from numpy import linalg as LA
 # in a) and b) we found the values 2 and 2 in the Hessian matrix
@@ -146,4 +146,32 @@ else:
 #+RESULTS:
 : eigenval: [ 6. -2.] | eigenvector: [[ 0.70710678  0.70710678]
 :  [-0.70710678  0.70710678]]
-: Because one of the eigenvalues is negative, we conclude that the function is not convex
+: Because one of the eigenvalues are negative, we conclude that the function is not convex
+* Problem 3
+If \(f\) is a differentiable convex function, then \(f\) satisfies the first-order condition
+\begin{proof}
+
+Given \(f\) is a differentiable convex function, the definition holds:
+
+\[\forall x, y \in dom f, \forall \lambda \in (0, 1), f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda) f(y)\]
+
+Let's do some re-arranging:
+
+\[f(\lambda x + y - \lambda y)) \leq \lambda f(x) + f(y) - \lambda f(y) \]
+
+\[f(\lambda (x-y) + y)] \leq \lambda (f(x) - f(y)) + f(y)\]
+
+\[\Rightarrow \frac{f(\lambda (x-y) + y) - f(y)}{\lambda} \leq f(x) - f(y)\]
+
+The left side of this equation looks exactly like the definition of the derivative using limits.
+
+As \(\lambda \to 0\),
+\[\Rightarrow \nabla [f(y)]^T (x-y) \leq f(x) - f(y)\]
+\[ \nabla [f(y)]^T (x-y) + f(y) \leq f(x)\]
+
+This is equivalent to the first-order condition:
+\[f(y) \geq f(x) + \nabla [f(x)]^\top (y-x), \forall x, y \in dom f\]
+
+
+\end{proof}
+*
