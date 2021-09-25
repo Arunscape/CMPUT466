@@ -171,7 +171,26 @@ As \(\lambda \to 0\),
 
 This is equivalent to the first-order condition:
 \[f(y) \geq f(x) + \nabla [f(x)]^\top (y-x), \forall x, y \in dom f\]
-
-
 \end{proof}
-*
+
+* Problem 4
+\begin{proof}
+    Because \[z = (1-\lambda) + \lambda y\]
+
+    ,we can find \(||y-x||\) with some rearranging:
+
+\[z = x - \lambda x + \lambda y = x + \lambda (y-x)\]
+
+\[z - x = \lambda (y - x)\]
+
+\[||z-x|| = || \lambda (y-x)|| = \lambda ||y -x||\]
+
+Using \(\lambda = \frac{\epsilon}{2 ||y-x||}\):
+\[\lambda ||y-x|| = ||z-x|| = \frac{\epsilon}{2}\]
+
+So,
+\[ \lambda||y-x|| < \epsilon\]
+
+Because \(\lambda \in (0,1)\), \(\lambda\) cannot be greater than 1, so:
+\[||y-x|| < \epsilon\]
+\end{proof}
