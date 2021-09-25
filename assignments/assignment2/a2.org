@@ -194,3 +194,31 @@ So,
 Because \(\lambda \in (0,1)\), \(\lambda\) cannot be greater than 1, so:
 \[||y-x|| < \epsilon\]
 \end{proof}
+* Problem 5
+Intuitively, we know that if the gradient of \(f\) is *0* at a point, it is either a local minimum or local maximum of the function.
+We know that it must be a local minimum because no part of the function curves down
+We know this, because if any neighboring point around *x* does not have a gradient equal to *0*, we can simply do
+gradient descent to get to the minimum, where the gradient is *0*.
+In class, we went over a theorem with a proof that if *x* is a local minimum, and \(f\) is convex, then
+*x* is a global minimum. Because *x* is a local minimum, by this theorem, *x* is also a global minimum.
+
+Now, for a more formal proof:
+\begin{proof}
+
+From the first-order condition for convex functions we have:
+\[\forall x, y \in dom f, f(y) \geq f(x) + [\nabla_x f(x)]^\top (y-x)\]
+
+Because \(\nabla f(x) = \mathbf{0}\),
+
+\[\forall x,y \in domf, f(y) \geq f(x)\]
+
+This is precisely the definition of a global optimum.
+\end{proof}
+
+
+The global optimum is not necessarily unique.
+Picture a convex function where the minimum is a straight line. Any point along this line
+would be the minimum of the function, while still satisfying the condition
+\(\forall x,y \in domf, f(y) \geq f(x)\). For example, the plot below:
+
+[[./graph.png]]
