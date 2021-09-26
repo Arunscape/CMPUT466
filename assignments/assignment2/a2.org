@@ -3,6 +3,7 @@
 #+OPTIONS: toc:nil num:nil
 #+LATEX_HEADER: \usepackage{amsthm}
 #+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{pdfpages}
 #+LATEX_CLASS_OPTIONS: [letterpaper]
 #+LATEX_HEADER: \theoremstyle{definition}
 #+LATEX_HEADER: \newtheorem{definition}{Definition}[section]
@@ -222,3 +223,11 @@ would be the minimum of the function, while still satisfying the condition
 \(\forall x,y \in domf, f(y) \geq f(x)\). For example, the plot below:
 
 [[./graph.png]]
+
+* Problem 6
+\includepdf{6-1.jpg}
+\includepdf{6-2.jpg}
+* Problem 7
+\includepdf{7.jpg}
+* Problem 8
+\includepdf{8.jpg}
