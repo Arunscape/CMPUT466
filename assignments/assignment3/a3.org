@@ -1,0 +1,60 @@
+
+#+TITLE: CMPUT 466 Assignment 3
+#+AUTHOR: Arun Woosaree
+#+OPTIONS: toc:nil num:nil
+#+LATEX_HEADER: \usepackage{amsthm}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{pdfpages}
+#+LATEX_CLASS_OPTIONS: [letterpaper]
+#+LATEX_HEADER: \theoremstyle{definition}
+#+LATEX_HEADER: \newtheorem{definition}{Definition}[section]
+
+#+begin_src elisp :exports none
+(setq org-latex-listings 'minted
+      org-latex-packages-alist '(("" "minted"))
+      org-latex-minted-options '(("linenos" "true"))
+      org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+#+end_src
+
+#+RESULTS:
+| pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f | pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f |
+
+* Problem 1
+\[J = \sum_{m=1}^M \left( \sum_{i=0}^d w_i x_i ^{(m)} -t^{(m)}\right)^2 + \sum_{i=0}^d w_i^2\]
+ can be written in matrix form as:
+
+ \[J = ||\mathbf{X}\mathbf{w} - t||_2^2 + \mathbf{w}^\top \mathbf{w}\]
+
+ \[J = \mathbf{w}^\top \mathbf{X}^\top \mathbf{X} \mathbf{w} - \mathbf{w}^\top \mathbf{X}^\top \mathbf{t} - \mathbf{t}^\top \mathbf{X} \mathbf{w} + \mathbf{t}^\top \mathbf{t} + \mathbf{w}^\top \mathbf{w}\]
+
+\[J = \mathbf{w}^\top \mathbf{X}^\top \mathbf{X} \mathbf{w}- 2 \mathbf{t}^\top \mathbf{X} \mathbf{w} + \mathbf{t}^\top \mathbf{t} + \mathbf{w}^\top \mathbf{w}\]
+
+\[\nabla J(\mathbf{w}) = 2 \mathbf{X}^\top \mathbf{X} \mathbf{w} - 2(\mathbf{t}^\top \mathbf{X})^\top + 2 \mathbf{w}\]
+
+\[\nabla J(\mathbf{w}) = 2 \mathbf{X}^\top \mathbf{X} \mathbf{w} - 2\mathbf{X}^\top \mathbf{t} + 2 \mathbf{w}\]
+
+\[\nabla^2 J(\mathbf{w}) = 2\mathbf{X}^\top \mathbf{X} + 2 \geq 0 \]
+
+Because \(\mathbf{X}^\top \mathbf{X} \in \mathbb{R}\) and it's \(\geq 0\), \(\nabla^2 J(\mathbf{w}) \geq 0\)
+
+So, \(J\) is convex in *w*.
+
+
+Because \(J\) is convex in *w*, we can set its first derivative to *0* to find the global minimum:
+
+\[\mathbf{0} = 2 \mathbf{X}^\top \mathbf{X} \mathbf{w} - 2\mathbf{X}^\top \mathbf{t} + 2 \mathbf{w}\]
+\[\mathbf{X}^\top \mathbf{t} = \mathbf{X}^\top \mathbf{X} \mathbf{w} + \mathbf{w}\]
+\[\mathbf{X}^\top \mathbf{t} = \mathbf{X}^\top \mathbf{X} \mathbf{w} + \mathbf{w}\]
+\[\mathbf{X}^\top \mathbf{t} = (\mathbf{X}^\top \mathbf{X} + I) \mathbf{w}\]
+\begin{equation*}
+\boxed{\mathbf{w} = (\mathbf{X}^\top \mathbf{X} + I)^{-1} \mathbf{X}^\top t}
+\end{equation*}
+
+Where \(I\) is the identity matrix.
+
+Note: this works when:
+- \(\mathbf{X}^\top \mathbf{X}\) is invertible (full rank)
+- cannot have duplicate features, can use pseudo inverse instead
+- need more samples than features. If not, do feature selection
