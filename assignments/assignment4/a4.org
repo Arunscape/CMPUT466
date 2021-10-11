@@ -1,0 +1,62 @@
+#+TITLE: CMPUT 466 Assignment 4
+#+AUTHOR: Arun Woosaree
+#+OPTIONS: toc:nil num:nil
+#+LATEX_HEADER: \usepackage{amsthm}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{pdfpages}
+#+LATEX_CLASS_OPTIONS: [letterpaper]
+#+LATEX_HEADER: \theoremstyle{definition}
+#+LATEX_HEADER: \newtheorem{definition}{Definition}[section]
+
+#+begin_src elisp :exports none
+(setq org-latex-listings 'minted
+      org-latex-packages-alist '(("" "minted"))
+      org-latex-minted-options '(("linenos" "true"))
+      org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+#+end_src
+
+#+RESULTS:
+| pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f | pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f |
+
+
+* Problem 1
+If \(P(X, Y) = f(X)g(Y)\) for some function \(f\) on \(X\) only, then \(X\) and \(Y\) are independent.
+\begin{proof}
+
+Using marginal probability,
+
+\[P(X)P(Y) = \int_X P(X,Y) dX  \int_Y P(X,Y) dY\]
+
+\[= \int_X f(X)g(Y) dX \int_Y f(X)g(Y) dY\]
+
+\[= f(X)g(Y) \int_X f(X) dX \int_Y g(Y) dY\]
+\[= P(X,Y) \int_X f(X) dX \int_Y g(Y) dY\]
+
+\[=P(X,Y)\]
+
+Thus, we have proven that if \(P(X,Y) = f(X)g(Y)\), \(P(X,Y) = P(X)P(Y)\).
+
+This is the definition for independent random variables, so X and Y must be independent.
+
+The proof is similar in the discrete case, just replace \(\int\) with \(\sum\)
+
+\end{proof}
+* Problem 2
+\(\mathbb{E}_{X \sim P(X)}[a f(X) + b g(X) ]\) is a linear system.
+
+\begin{proof}
+Using the definition for \(\mathbb{E}\),
+\[\mathbb{E}_{X \sim P(X)}[a f(X) + b g(X)] =  \sum_X P(X) (af(X) + bg(X))\]
+\[= \sum_X aP(X)f(X) + \sum_X bP(X)g(X)\]
+\[= a\sum_X P(X)f(X) + b\sum_X P(X)g(X)\]
+
+applying the definition again,
+
+\[\mathbb{E}_{X \sim P(X)}[a f(X) + b g(X) ] = a \mathbb{E}_{X \sim P(X)} [f(X)] + b \mathbb{E}_{X \sim P(X)} [g(X)] \]
+
+This precisely fits the definition of a linear system.
+The proof is similar in the continuous case, just replace \(\sum\) with \(\int\)
+
+\end{proof}
