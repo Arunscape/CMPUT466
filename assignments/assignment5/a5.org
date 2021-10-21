@@ -1,0 +1,34 @@
+#+TITLE: CMPUT 466 Assignment 5
+#+AUTHOR: Arun Woosaree
+#+OPTIONS: toc:nil num:nil
+#+LATEX_HEADER: \usepackage{amsthm}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{pdfpages}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_CLASS_OPTIONS: [letterpaper]
+#+LATEX_HEADER: \theoremstyle{definition}
+#+LATEX_HEADER: \newtheorem{definition}{Definition}[section]
+
+#+begin_src elisp :exports none
+(setq org-latex-listings 'minted
+      org-latex-packages-alist '(("" "minted"))
+      org-latex-minted-options '(("linenos" "true"))
+      org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+#+end_src
+
+#+RESULTS:
+| pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f | pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f |
+
+
+* Problem 1
+
+|                          | Larger C                 | Smaller C                |
+|--------------------------+--------------------------+--------------------------|
+| Model capacity           | large                    | small                    |
+| Overfitting/Underfitting | overfitting              | underfitting             |
+| bias variance            | low bias / high variance | high bias / low variance |
+* Problem 2, 3
+\includepdf{2.jpg}
+\includepdf{3.jpg}

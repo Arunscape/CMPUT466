@@ -4,6 +4,7 @@
 #+LATEX_HEADER: \usepackage{amsthm}
 #+LATEX_HEADER: \usepackage{amsmath}
 #+LATEX_HEADER: \usepackage{pdfpages}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
 #+LATEX_CLASS_OPTIONS: [letterpaper]
 #+LATEX_HEADER: \theoremstyle{definition}
 #+LATEX_HEADER: \newtheorem{definition}{Definition}[section]
@@ -60,3 +61,75 @@ This precisely fits the definition of a linear system.
 The proof is similar in the continuous case, just replace \(\sum\) with \(\int\)
 
 \end{proof}
+* Problem 3
+- \(X \sim U[a,b]\) continuous random variable
+- uniformly distributed
+- a, b unknown parameters
+- dataset \(\{x^{(m)}\}_{m=1}^M\)
+** a) Likelihood of parameters
+because of the above information,
+\[\mathcal{L} (a, b; \mathcal{D}) = \Pi_{m=1}^m \frac{1}{b-a}= \frac{1}{(b-a)^m}\]
+
+- note: if \(x^{(m)} = a = b\), then the likelihood is infinite
+- if \(x^{(m)} \not\in [a,b] \),  then the likelihood is zero
+
+The log likelihood is:
+\[\log \frac{1}{(b-a)^m} = -m \log (b-a) \]
+** b) MLE of parameters
+- the derivative of the log likelihood with respect to a is \(\frac{m}{b-a}\)
+  - we notice that this is monotonically increasing, so
+
+    MLE for a is the largest a possible, i.e.
+
+    \[\hat{a} = \min_m \{x^{(m)}\}\]
+- the derivative of the log likelihood with respect to b is \(- \frac{m}{b-a}\)
+  - we notice that this is monotonically decreasing, so
+
+    MLE for b is the smallest b possible, i.e.
+
+    \[\hat{b} = \max_m \{x^{(m)}\}\]
+* Problem 4
+** c) Prove MLE is biased in this case
+- let \(B \in [a,b]\)
+
+  Then,
+
+  \[Pr[\hat{b} \leq B] = \Pi_{m=1}^M Pr[x^{(m)} \leq B] \]
+  \[= \left(\frac{B-a_*}{b_* - a_*}\right)^M\]
+  This is the cumulative probability density function \(F_{\hat{b}}(B)\)
+
+  \[f_{\hat{b}} (B) = \frac{d}{dB} F_{\hat{b}}(B) = M \frac{(B - a_*)^{(M-1)}}{(b_* - a_*)^M}\]
+
+  # \[\mathbb{E}_{\max_m \{x^{(m)}\}}[\hat{b}] = \int_{a_*}^{b_*}\]
+  \[\mathbb{E}_{x^{(m) \sim^{iid} U[a_*,b_*]}} [\hat{b}] = \int_{a_*}^{b_*} \frac{\hat{b}M(\hat{b} - a_*)^{(M-1)}}{(b_* - a_*)^M} d\hat{b} \]
+
+  \[=\frac{M}{(b_*-a_*)^M} \int_{a_*}^{b_*} \hat{b} (\hat{b} - a_*)^{(M-1)} d\hat{b}\]
+  \[=\frac{M}{(b_*-a_*)^M} \int_{a_*}^{b_*} a_* (\hat{b} - a_*)^{(M-1)} + (\hat{b} - a_*)^M d\hat{b}\]
+  \[=\frac{M}{(b_*-a_*)^M} \left( a_* \int_{a_*}^{b_*}(\hat{b} - a_*)^{(M-1)} d\hat{b} + \int_{a_*}^{b_*}(\hat{b} - a_*)^M d\hat{b} \right) \]
+  \[=\frac{M}{(b_*-a_*)^M} \left( \frac{a_* (\hat{b} - a_*)^M}{M} \Biggr|_{a_*}^{b_*} + \frac{(\hat{b} - a_*)^{(M+1)}}{M+1} \Biggr|_{a_*}^{b_*} \right) \]
+  \[=\frac{M}{(b_*-a_*)^M} \left( \frac{a_* (b_* - a_*)^M}{M} + \frac{(b_* - a_*)^{(M+1)}}{M+1} \right) \]
+  \[= a_* + \frac{M(b_* - a_*)}{M+1} \]
+  \[\neq b_*\]
+
+  This proves that the MLE is biased.
+
+  Similarly, we can see that:
+  \[\mathbb{E}[\hat{a}] = a_* + \frac{b_* - a_*}{M+1}\],
+  which is \(\neq a_*\)
+
+
+** d) Prove MLS is asymptotically unbiased if \(M \to +\infty\)
+  \[\lim_{M \to \infty} \mathbb{E}[\hat{a}] = \lim_{M \to \infty} a_* + \frac{b_* - a_*}{M+1}\],
+  \[=a_*\]
+
+\[\lim_{M \to \infty} \mathbb{E}[\hat{b}] = \lim_{M \to \infty} a_* + \frac{M(b_* - a_*)}{M+1}\]
+\[= \lim_{M \to \infty} \frac{(a_*M + a_*) + b_*M - a_*M}{M+1} \]
+\[= \lim_{M \to \infty} \frac{a_*}{M+1} + \frac{b_*M}{M+1} \]
+\[= 0 + b_*\]
+\[=b_*\]
+
+
+This proves that as \(M \to +\infty\), \(\mathbb{E}[\hat{a}] = a\) and \(\mathbb{E}[\hat{b}] = b\),
+which fits the definition for unbiased.
+
+- note: \(x^{(m)} \sim^{iid} U[a_*, b_*]\) should be under the \(\mathbb{E}\) symbols but was dropped for brevity
