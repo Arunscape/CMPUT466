@@ -85,7 +85,7 @@ def generate_data(M, var1, var2, degree):
     plt.savefig('data_xy_'+str(var2)+ '_' + str(degree) + '.jpg')
     return data
 
-def main_code(M=5000, var1=1, var2=0.3, degree=45):
+def main_code(M=5000, var1=1, var2=0.3, degree=45, custom_filename=None, data=None):
     ###########################
     # Main code starts here
     ###########################
@@ -94,8 +94,11 @@ def main_code(M=5000, var1=1, var2=0.3, degree=45):
     #var1 = 1
     #var2 = 0.3
     #degree = 45
+    if custom_filename is None:
+        custom_filename = 'Regression_model_' + str(var2) + '_' + str(degree) + '.jpg'
     
-    data = generate_data(M, var1, var2, degree)
+    if data is None:
+        data = generate_data(M, var1, var2, degree)
     
     ##########
     # Training the linear regression model predicting y from x (x2y)
@@ -146,7 +149,8 @@ def main_code(M=5000, var1=1, var2=0.3, degree=45):
     plt.plot(model(Y_new_aug, w_y2x), Y_new, color="green", label="y2x")
     plt.legend()
     plt.tight_layout()
-    plt.savefig('Regression_model_' + str(var2) + '_' + str(degree) + '.jpg')
+    plt.savefig(custom_filename)
+    return custom_filename
 
 if __name__ == '__main__':
     main_code()

@@ -1,0 +1,93 @@
+#+title: CMPUT 466 Coding Assignment 1
+#+author: Arun Woosaree
+#+OPTIONS: toc:nil num:nil
+#+LATEX_HEADER: \usepackage{amsthm}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{pdfpages}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_CLASS_OPTIONS: [letterpaper]
+
+#+begin_src python :session :exports none
+from q1 import *
+# used in multiple parts
+data_5000_1_01_45 = generate_data(5000, 1, 0.1, 45)
+
+# part 2
+data_5000_1_03_45 = generate_data(5000, 1, 0.3, 45)
+data_5000_1_08_45 = generate_data(5000, 1, 0.8, 45)
+
+# part 4
+data_5000_1_01_15 = generate_data(5000, 1, 0.1, 15)
+data_5000_1_01_75 = generate_data(5000, 1, 0.1, 75)
+#+end_src
+
+#+RESULTS:
+
+
+* Problem 1
+** 1
+#+begin_src python :session :exports results :results output
+main_code(data=data_5000_1_03_45)
+#+end_src
+
+#+RESULTS:
+: Predicting y from x (x2y): weight=0.5529357344169585 bias =  0.01105757219565567
+: Predicting x from y (y2x): weight=0.5341542074770702 bias =  -0.01067589129819441
+
+** 2
+*** var2=0.1
+#+begin_src python :session :exports results :results file
+main_code(custom_filename="problem_1_part_2_0.1.jpg", data=data_5000_1_01_45)
+#+end_src
+
+#+RESULTS:
+[[file:problem_1_part_2_0.1.jpg]]
+
+*** var2 = 0.3
+#+begin_src python :session :exports results :results file
+main_code(custom_filename="problem_1_part_2_0.3.jpg", data=data_5000_1_03_45)
+#+end_src
+
+#+RESULTS:
+[[file:problem_1_part_2_0.3.jpg]]
+
+*** var2 = 0.8
+#+begin_src python :session :exports results :results file
+main_code(custom_filename="problem_1_part_2_0.8.jpg", data=data_5000_1_08_45)
+#+end_src
+
+#+RESULTS:
+[[file:problem_1_part_2_0.8.jpg]]
+
+** 3
+It looks like as var2 approaches 1, y2x and x2y become perpendicular  to the actual trend, while as var2 approaches 0, y2x and x2y approaches the actual trend
+** 4
+
+#+begin_src python :session :exports none
+#+end_src
+
+#+RESULTS:
+
+*** degree=15
+#+begin_src python :session :exports results :results file
+main_code(custom_filename="problem_4_15_degree.jpg", data=data_5000_1_01_15)
+#+end_src
+
+#+RESULTS:
+[[file:problem_4_15_degree.jpg]]
+
+*** degree=45
+#+begin_src python :session :exports results :results file
+main_code(custom_filename="problem_4_45_degree.jpg", data=data_5000_1_01_45)
+#+end_src
+
+#+RESULTS:
+[[file:problem_4_45_degree.jpg]]
+
+*** degree=15
+#+begin_src python :session :exports results :results file
+main_code(custom_filename="problem_4_75_degree.jpg", data=data_5000_1_01_75)
+#+end_src
+
+#+RESULTS:
+[[file:problem_4_75_degree.jpg]]
