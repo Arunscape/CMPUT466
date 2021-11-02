@@ -16,11 +16,8 @@ def leastSquares(X, Y):
     # X: M x (d+1), Y: M x 1, where d=1 here
     # return weights w
     
-    # TODO: YOUR CODE HERE
+    # w, residuals, rank, s = np.linalg.lstsq(X,Y)
     # closed form solution by matrix-vector representations only
-
-    #w, residuals, rank, s = np.linalg.lstsq(X,Y)
-
     w = np.linalg.inv((X.T).dot(X)).dot(X.T).dot(Y)
     return w
 
@@ -30,9 +27,7 @@ def model(X, w):
     # w: d+1
     # return y_hat: M x 1
 
-    # TODO: YOUR CODE HERE
     y_hat = X.dot(w)
-
     return y_hat
 
 

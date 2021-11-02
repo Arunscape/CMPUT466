@@ -84,10 +84,13 @@ main_code(custom_filename="problem_4_45_degree.jpg", data=data_5000_1_01_45)
 #+RESULTS:
 [[file:problem_4_45_degree.jpg]]
 
-*** degree=15
+*** degree=75
 #+begin_src python :session :exports results :results file
 main_code(custom_filename="problem_4_75_degree.jpg", data=data_5000_1_01_75)
 #+end_src
 
 #+RESULTS:
 [[file:problem_4_75_degree.jpg]]
+*** Conclusion
+It looks like increasing the rotation higher than 45 degrees makes the y2x prediction more accurate, while degreasing the rotation lower than 45 decrees makes the x2y prediction more accurate.
+pacman -Rs $(pacman -Qqtd)

@@ -1,0 +1,64 @@
+#+TITLE: CMPUT 466 W6
+#+AUTHOR: Arun Woosaree
+#+OPTIONS: toc:nil num:nil
+#+LATEX_HEADER: \usepackage{amsthm}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{pdfpages}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_CLASS_OPTIONS: [letterpaper]
+#+LATEX_HEADER: \theoremstyle{definition}
+#+LATEX_HEADER: \newtheorem{definition}{Definition}[section]
+
+#+begin_src elisp :exports none
+(setq org-latex-listings 'minted
+      org-latex-packages-alist '(("" "minted"))
+      org-latex-minted-options '(("linenos" "true"))
+      org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+#+end_src
+
+#+RESULTS:
+| pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f | pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f |
+
+
+* Problem 1
+say there are 90 positive samples out of 100. Then if we always predict t=1,
+- 90 of the samples are true positive (TP)
+- 10 of the samples are false positive (FP)
+- 0 of the samples are false negative (FN)
+
+
+\[P = \frac{TP}{TP+FP} = \frac{90}{90+10} = 0.9\]
+\[R = \frac{TP}{TP+FN} = \frac{90}{90 + 0} = 1\]
+\[F_1 = \frac{2PR}{P+R} = \frac{2 \times 0.9 \times 1}{0.9 + 1} = \frac{18}{19} \approx 0.9474\]
+
+
+The issue here is that the \(F_1\) score is insensitive. With a trivial classifier, we achieved an \(F_1\) score of 94.7%.
+
+The positive category should be the minority class. This will have a more meaningful result. i.e., we change the meaning of positive samples to be \(t=0\) and negative to be \(t=1\)
+* Problem 2
+Prove \(\sigma(-z) = 1 - \sigma(z)\)
+\begin{proof}
+\[\sigma(z) = \frac{1}{1 + e^{-z}}\]
+\[1-\sigma(z) = 1 - \frac{1}{1 + e^{-z}}\]
+\[= \frac{1+e^{-z}}{1+e^{-z}} - \frac{1}{1+e^{-z}}\]
+\[= \frac{1}{e^z(1+e^{-z})}\]
+\[= \frac{1}{1 + e^{-(-z)}}\]
+\[= \sigma(-z)\]
+\end{proof}
+Therefore, we have proven that \(\sigma(z)\) is symmetric about the point \((0, 0.5)\)
+* Problem 3
+Prove minimizing \(KL(\mathbf{t} || \mathbf{y}) \Leftrightarrow \) minimizing \(J = -t \log y - (1-t) \log (1-y)\)
+\begin{proof}
+minimize \(\sum_{k=1}^{K} t_k \log \frac{t_k}{y_k}\)
+
+\(\Leftrightarrow\) minimize \(\sum_{k=1}^{K} t_k \log t_k - \sum_{k=1}^K t_k \log y_k\)
+
+\(\Leftrightarrow\) minimize \(- \sum_{k=1}^K t_k \log y_k\)
+
+\(\Leftrightarrow\) minimize \(- (t \log y + (1-t) \log (1-y)) \)
+
+\(\Leftrightarrow\) minimize \( J= -t \log y - (1-t) \log (1-y)\)
+
+\end{proof}
