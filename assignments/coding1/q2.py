@@ -18,8 +18,8 @@ def predict(X, w, y = None):
 
 
 def train(X_train, y_train, X_val, y_val):
-    N_train = X_train.shape[0]
-    N_val   = X_val.shape[0]
+    N_train = X_train.shape[0] # number of samples
+    N_val   = X_val.shape[0]   # number of validation
 
     # initialization
     w = np.zeros([X_train.shape[1], 1])
@@ -53,7 +53,7 @@ def train(X_train, y_train, X_val, y_val):
         training_loss = loss_this_epoch/batch_size
         losses_train.append(training_loss)
         # 2. Perform validation on the validation test by the risk
-        y_hat, loss, risk = predict(X_val, w, y_val)
+        y_hat, _, risk = predict(X_val, w, y_val)
         risks_val.append(risk)
 
         # 3. Keep track of the best validation epoch, risk, and the weights
@@ -63,10 +63,8 @@ def train(X_train, y_train, X_val, y_val):
             risk_best = risk
             w_best = w
 
-        N_val[epoch] = y_hat
-
     # Return some variables as needed
-    return w_best, epoch_best, risk_best
+    return epoch_best, risk_best, w_best
 
 
 
