@@ -12,14 +12,14 @@ def predict(X, w, y = None):
     # TODO: Your code here
     y_hat = X.dot(w)
     loss  = 1 / (2*len(w)) * (y_hat - y).T.dot(y_hat - y)
-    risk  = 1/ len(w) * np.abs(y_hat-y)
+    risk  = 1/ len(w) * np.sum(np.abs(y_hat-y))
     
     return y_hat, loss, risk
 
 
 def train(X_train, y_train, X_val, y_val):
     N_train = X_train.shape[0] # number of samples
-    N_val   = X_val.shape[0]   # number of validation
+    N_val   = X_val.shape[0]   # number of validation samples
 
     # initialization
     w = np.zeros([X_train.shape[1], 1])
@@ -55,7 +55,6 @@ def train(X_train, y_train, X_val, y_val):
         # 2. Perform validation on the validation test by the risk
         y_hat, _, risk = predict(X_val, w, y_val)
         risks_val.append(risk)
-
         # 3. Keep track of the best validation epoch, risk, and the weights
         print(risks_val)
         if risk == np.min(risks_val):
@@ -122,7 +121,9 @@ decay = 0.0          # weight decay
 
 
 # TODO: Your code here
-_ = train(X_train, y_train, X_val, y_val)
+best_epoch, best_risk, w = train(X_train, y_train, X_val, y_val)
+y_hat, loss, test_risk = predict(X_test, w, y_test)
+print(f"1. Best epoch: {best_epoch}\n2.Validation performance: {best_risk}\n3. Test performance: {test_risk}")
 
 # Perform test by the weights yielding the best validation performance
 
