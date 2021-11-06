@@ -2,6 +2,7 @@
 
 import sklearn.datasets as datasets
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 def predict(X, w, y = None):
@@ -11,10 +12,10 @@ def predict(X, w, y = None):
 
     # TODO: Your code here
     y_hat = X.dot(w)
-    loss  = 1 / (2*len(w)) * (y_hat - y).T.dot(y_hat - y)
-    risk  = 1/ len(w) * np.sum(np.abs(y_hat-y))
+    loss  = 1 / (2*len(y)) * (y_hat - y).T.dot(y_hat - y)
+    risk  = 1/ len(y) * np.sum(np.abs(y_hat-y))
     
-    return y_hat, loss, risk
+    return y_hat, loss.flatten(), risk
 
 
 def train(X_train, y_train, X_val, y_val):
@@ -45,7 +46,7 @@ def train(X_train, y_train, X_val, y_val):
 
             # TODO: Your code here
             # Mini-batch gradient descent
-            w = w - 1/ len(w) * alpha * (X_batch.T).dot(y_hat_batch-y_batch)
+            w = w - 1/ len(y_batch) * alpha * (X_batch.T).dot(y_hat_batch-y_batch)
 
         # TODO: Your code here
         # monitor model behavior after each epoch
@@ -56,14 +57,14 @@ def train(X_train, y_train, X_val, y_val):
         y_hat, _, risk = predict(X_val, w, y_val)
         risks_val.append(risk)
         # 3. Keep track of the best validation epoch, risk, and the weights
-        print(risks_val)
+        #print(risks_val)
         if risk == np.min(risks_val):
             epoch_best = epoch
             risk_best = risk
             w_best = w
 
     # Return some variables as needed
-    return epoch_best, risk_best, w_best
+    return epoch_best, risk_best, w_best, risks_val, losses_train
 
 
 
@@ -121,9 +122,19 @@ decay = 0.0          # weight decay
 
 
 # TODO: Your code here
-best_epoch, best_risk, w = train(X_train, y_train, X_val, y_val)
+best_epoch, best_risk, w, risks_val, losses_train = train(X_train, y_train, X_val, y_val)
 y_hat, loss, test_risk = predict(X_test, w, y_test)
-print(f"1. Best epoch: {best_epoch}\n2.Validation performance: {best_risk}\n3. Test performance: {test_risk}")
+print(f"2 a)\n1. Best epoch: {best_epoch}\n2. Validation performance: {best_risk}\n3. Test performance: {test_risk}")
+print(f"loss: {loss}")
+
+
+print(risks_val)
+print(losses_train)
+plt.plot(range(MaxIter), losses_train)
+plt.show()
+
+plt.plot(range(MaxIter), risks_val)
+plt.show()
 
 # Perform test by the weights yielding the best validation performance
 
