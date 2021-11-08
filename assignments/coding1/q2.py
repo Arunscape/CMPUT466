@@ -131,7 +131,7 @@ print(f"""2 a)
 1. Best epoch: {best_epoch}
 2. Validation performance: {best_risk}
 3. Test performance: {test_risk}""")
-print(f"test loss: {loss}")
+#print(f"test loss: {loss}")
 
 
 #print(risks_val)
@@ -139,12 +139,14 @@ print(f"test loss: {loss}")
 plt.plot(range(MaxIter), losses_train)
 plt.xlabel("Epoch")
 plt.ylabel("Loss")
-plt.show()
+plt.savefig("images/q2a_loss.png")
+
+plt.figure()
 
 plt.plot(range(MaxIter), risks_val)
 plt.xlabel("Epoch")
 plt.ylabel("Risk")
-plt.show()
+plt.savefig("images/q2a_risk.png")
 # Perform test by the weights yielding the best validation performance
 
 # Report numbers and draw plots as required. 

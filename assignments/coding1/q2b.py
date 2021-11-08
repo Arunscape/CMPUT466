@@ -162,12 +162,14 @@ best hyperparameter: {best_param}
 plt.plot(range(MaxIter), losses_train)
 plt.xlabel("Epoch")
 plt.ylabel("Loss")
-plt.show()
+plt.savefig("images/q2b_loss.png")
+
+plt.figure()
 
 plt.plot(range(MaxIter), risks_val)
 plt.xlabel("Epoch")
 plt.ylabel("Risk")
-plt.show()
+plt.savefig("images/q2b_risk.png")
 
 # Perform test by the weights yielding the best validation performance
 

@@ -31,7 +31,7 @@ def model(X, w):
     return y_hat
 
 
-def generate_data(M, var1, var2, degree):
+def generate_data(M, var1, var2, degree, show_figures=False):
 
     # data generate involves two steps:
     # Step I: generating 2-D data, where two axis are independent
@@ -44,17 +44,20 @@ def generate_data(M, var1, var2, degree):
     Cov = [[var1, 0],
            [0,  var2]]
 
+    # set the seed for reproducability
+    np.random.seed(314)
     data = np.random.multivariate_normal(mu, Cov, M)
     # shape: M x 2
 
-    plt.figure()
-    plt.scatter(data[:,0], data[:, 1], color="blue")
-    plt.xlim(-4, 4)
-    plt.ylim(-4, 4)
-    plt.xlabel('a')
-    plt.ylabel('b')
-    plt.tight_layout()
-    plt.savefig('data_ab_'+str(var2)+'.jpg')
+    if show_figures:
+        plt.figure()
+        plt.scatter(data[:,0], data[:, 1], color="blue")
+        plt.xlim(-4, 4)
+        plt.ylim(-4, 4)
+        plt.xlabel('a')
+        plt.ylabel('b')
+        plt.tight_layout()
+        plt.savefig('data_ab_'+str(var2)+'.jpg')
 
 
     # Step II: rotate data by 45 degree counter-clockwise,
@@ -62,25 +65,28 @@ def generate_data(M, var1, var2, degree):
 
 
     data = rotate(data, degree)
-    plt.tight_layout()
-    plt.figure()
-    # plot the data points
-    plt.scatter(data[:,0], data[:, 1], color="blue")
-    plt.xlim(-4, 4)
-    plt.ylim(-4, 4)
-    plt.xlabel('x')
-    plt.ylabel('y')
+    if show_figures:     
+        plt.tight_layout()
+        plt.figure()
+        # plot the data points
+        plt.scatter(data[:,0], data[:, 1], color="blue")
+        plt.xlim(-4, 4)
+        plt.ylim(-4, 4)
+        plt.xlabel('x')
+        plt.ylabel('y')
 
     # plot the line where data are mostly generated around
     X_new = np.linspace(-5, 5, 100, endpoint=True).reshape([100,1])
 
     Y_new = np.tan(np.pi/180*degree)*X_new
-    plt.plot(X_new, Y_new, color="blue", linestyle='dashed')
-    plt.tight_layout()
-    plt.savefig('data_xy_'+str(var2)+ '_' + str(degree) + '.jpg')
+
+    if show_figures:
+        plt.plot(X_new, Y_new, color="blue", linestyle='dashed')
+        plt.tight_layout()
+        plt.savefig('data_xy_'+str(var2)+ '_' + str(degree) + '.jpg')
     return data
 
-def main_code(M=5000, var1=1, var2=0.3, degree=45, custom_filename=None, data=None):
+def main_code(M=5000, var1=1, var2=0.3, degree=45, plot=None, data=None):
     ###########################
     # Main code starts here
     ###########################
@@ -89,8 +95,8 @@ def main_code(M=5000, var1=1, var2=0.3, degree=45, custom_filename=None, data=No
     #var1 = 1
     #var2 = 0.3
     #degree = 45
-    if custom_filename is None:
-        custom_filename = 'Regression_model_' + str(var2) + '_' + str(degree) + '.jpg'
+    #if custom_filename is None:
+    #    custom_filename = 'Regression_model_' + str(var2) + '_' + str(degree) + '.jpg'
     
     if data is None:
         data = generate_data(M, var1, var2, degree)
@@ -114,38 +120,37 @@ def main_code(M=5000, var1=1, var2=0.3, degree=45, custom_filename=None, data=No
     
     w_y2x = leastSquares(Input_aug, Output) # (d+1) x 1, where d=1
     print('Predicting x from y (y2x): weight='+ str(w_y2x[0,0]), 'bias = ', str(w_y2x[1,0]))
-    
-    
-    # plot the data points
-    plt.figure()
-    X = data[:,0].reshape((-1,1)) # M x d, where d=1
-    Y = data[:,1].reshape((-1,1)) # M x d, where d=1
-    
-    plt.scatter(X, Y, color="blue", marker='x')
-    plt.xlim(-4, 4)
-    plt.ylim(-4, 4)
-    plt.xlabel('x')
-    plt.ylabel('y')
-    
-    # plot the line where data are mostly generated around
-    X_new = np.linspace(-4, 4, 100, endpoint=True).reshape([100, 1])
-    
-    Y_new = np.tan(np.pi/180*degree)*X_new
-    plt.plot(X_new, Y_new, color="blue", linestyle='dashed')
-    
-    # plot the prediction of y from x (x2y)
-    X_new = np.linspace(-4, 4, 100, endpoint=True).reshape([100, 1]) # M x d, where d=1
-    X_new_aug = np.concatenate([X_new, np.ones([X_new.shape[0], 1])], axis=1) # M x (d+1) augmented feature
-    plt.plot(X_new, model(X_new_aug, w_x2y), color="red", label="x2y")
-    
-    # plot the prediction of x from y (y2x)
-    Y_new = np.linspace(-4, 4, 100, endpoint=True).reshape([100, 1]) # M x d, where d=1
-    Y_new_aug = np.concatenate([X_new, np.ones([X_new.shape[0], 1])], axis=1) # M x (d+1) augmented feature
-    plt.plot(model(Y_new_aug, w_y2x), Y_new, color="green", label="y2x")
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig(custom_filename)
-    return custom_filename
+    if plot is not None:
+        # plot the data points
+        plt.figure()
+        X = data[:,0].reshape((-1,1)) # M x d, where d=1
+        Y = data[:,1].reshape((-1,1)) # M x d, where d=1
+        
+        plt.scatter(X, Y, color="blue", marker='x')
+        plt.xlim(-4, 4)
+        plt.ylim(-4, 4)
+        plt.xlabel('x')
+        plt.ylabel('y')
+        
+        # plot the line where data are mostly generated around
+        X_new = np.linspace(-4, 4, 100, endpoint=True).reshape([100, 1])
+        
+        Y_new = np.tan(np.pi/180*degree)*X_new
+        plt.plot(X_new, Y_new, color="blue", linestyle='dashed')
+        
+        # plot the prediction of y from x (x2y)
+        X_new = np.linspace(-4, 4, 100, endpoint=True).reshape([100, 1]) # M x d, where d=1
+        X_new_aug = np.concatenate([X_new, np.ones([X_new.shape[0], 1])], axis=1) # M x (d+1) augmented feature
+        plt.plot(X_new, model(X_new_aug, w_x2y), color="red", label="x2y")
+        
+        # plot the prediction of x from y (y2x)
+        Y_new = np.linspace(-4, 4, 100, endpoint=True).reshape([100, 1]) # M x d, where d=1
+        Y_new_aug = np.concatenate([X_new, np.ones([X_new.shape[0], 1])], axis=1) # M x (d+1) augmented feature
+        plt.plot(model(Y_new_aug, w_y2x), Y_new, color="green", label="y2x")
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig(plot)
+        return plot
 
 if __name__ == '__main__':
     main_code()

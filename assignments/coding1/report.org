@@ -7,90 +7,114 @@
 #+LATEX_HEADER: \usepackage[utf8]{inputenc}
 #+LATEX_CLASS_OPTIONS: [letterpaper]
 
-#+begin_src python :session :exports none
-from q1 import *
-# used in multiple parts
-data_5000_1_01_45 = generate_data(5000, 1, 0.1, 45)
-
-# part 2
-data_5000_1_03_45 = generate_data(5000, 1, 0.3, 45)
-data_5000_1_08_45 = generate_data(5000, 1, 0.8, 45)
-
-# part 4
-data_5000_1_01_15 = generate_data(5000, 1, 0.1, 15)
-data_5000_1_01_75 = generate_data(5000, 1, 0.1, 75)
-#+end_src
-
-#+RESULTS:
-
 
 * Problem 1
 ** 1
-#+begin_src python :session :exports results :results output
-main_code(data=data_5000_1_03_45)
+#+begin_src python :results output :exports results
+from q1 import main_code
+#main_code(M=5000, var1=1, var2=0.3, degree=45)
+main_code()
 #+end_src
 
 #+RESULTS:
-: Predicting y from x (x2y): weight=0.5529357344169585 bias =  0.01105757219565567
-: Predicting x from y (y2x): weight=0.5341542074770702 bias =  -0.01067589129819441
+: Predicting y from x (x2y): weight=0.5322707668582495 bias =  0.004946528434201664
+: Predicting x from y (y2x): weight=0.5399327509871074 bias =  -0.011120077093374365
+
 
 ** 2
 *** var2=0.1
-#+begin_src python :session :exports results :results file
-main_code(custom_filename="problem_1_part_2_0.1.jpg", data=data_5000_1_01_45)
+#+begin_src python :results file :exports results
+from q1 import main_code
+return main_code(var2=0.1, plot="images/part1-2-0.1.png")
 #+end_src
 
 #+RESULTS:
-[[file:problem_1_part_2_0.1.jpg]]
+[[file:images/part1-2-0.1.png]]
+
+
+
 
 *** var2 = 0.3
-#+begin_src python :session :exports results :results file
-main_code(custom_filename="problem_1_part_2_0.3.jpg", data=data_5000_1_03_45)
+#+begin_src python :results file :exports results
+from q1 import main_code
+return main_code(var2=0.3, plot="images/problem_1_part_2_0.3.jpg")
 #+end_src
 
 #+RESULTS:
-[[file:problem_1_part_2_0.3.jpg]]
+[[file:images/problem_1_part_2_0.3.jpg]]
 
 *** var2 = 0.8
-#+begin_src python :session :exports results :results file
-main_code(custom_filename="problem_1_part_2_0.8.jpg", data=data_5000_1_08_45)
+#+begin_src python :results file :exports results
+from q1 import main_code
+return main_code(var2=0.8, plot="images/problem_1_part_2_0.8.png")
 #+end_src
 
 #+RESULTS:
-[[file:problem_1_part_2_0.8.jpg]]
+[[file:images/problem_1_part_2_0.8.png]]
 
 ** 3
-It looks like as var2 approaches 1, y2x and x2y become perpendicular  to the actual trend, while as var2 approaches 0, y2x and x2y approaches the actual trend
+- in 1) we implemented feature augmentation; each data sample was concatenated with a dummy feature 1
+  + a bias was added so that the model would be affine. i.e.  lines and parallelism are preserved (but not necessarily distances and angles)
+- in 2) we experimented with changing the variance on the b axis
+  + it looks like when the variance is lower, the model can fit the data better, i.e. with lower variance, the x2y and y2x lines get closer to each other and the true regression line
+  + with higher variance, the x2y and y2x lines get further away from the true regression lines and they don't fit the data as well
 ** 4
-
-#+begin_src python :session :exports none
-#+end_src
-
-#+RESULTS:
-
+An experiment was designed to see the effects of changing the degree of rotation.
+Plots were created with degree ranging from 1 to 89. Below are three of the plots, at 15, 45, and 75 degrees of rotation. It was predicted that changing the degree of rotation would likely improve the x2y model or the y2x model depending on the degree of rotation.
 *** degree=15
-#+begin_src python :session :exports results :results file
-main_code(custom_filename="problem_4_15_degree.jpg", data=data_5000_1_01_15)
+#+begin_src python :exports results :results file
+from q1 import main_code
+return main_code(var2=0.1, degree=15, plot="images/problem_4_15_degree.png")
 #+end_src
 
 #+RESULTS:
-[[file:problem_4_15_degree.jpg]]
+[[file:images/problem_4_15_degree.png]]
 
 *** degree=45
-#+begin_src python :session :exports results :results file
-main_code(custom_filename="problem_4_45_degree.jpg", data=data_5000_1_01_45)
+#+begin_src python :exports results :results file
+from q1 import main_code
+return main_code(var2=0.1, degree=45, plot="images/problem_4_45_degree.png")
 #+end_src
 
 #+RESULTS:
-[[file:problem_4_45_degree.jpg]]
+[[file:images/problem_4_45_degree.png]]
 
 *** degree=75
-#+begin_src python :session :exports results :results file
-main_code(custom_filename="problem_4_75_degree.jpg", data=data_5000_1_01_75)
+#+begin_src python :exports results :results file
+from q1 import main_code
+return main_code(var2=0.1, degree=75, plot="images/problem_4_75_degree.png")
 #+end_src
 
 #+RESULTS:
-[[file:problem_4_75_degree.jpg]]
+[[file:images/problem_4_75_degree.png]]
 *** Conclusion
-It looks like increasing the rotation higher than 45 degrees makes the y2x prediction more accurate, while degreasing the rotation lower than 45 decrees makes the x2y prediction more accurate.
-pacman -Rs $(pacman -Qqtd)
+From the experiment, it looks like a higher degree of rotation made the y2x prediction more accurate, while a lower degree of rotation made the x2y prediction better.
+- Around 45 degrees, the x2y and y2x lines are the closest to each other, but also equally far from the true regression line.
+- With a higher degree of rotation, the y-axis has higher variance and the x-axis has lower variance. As a result, the y2x line is really close to the true regression line and the x2y line does not fit the data well.
+- With a lower degree of rotation, the x-axis has higher variance and the y-axis has lower variance. As a result, the x2y line is really close to the true regression line and the y2x line does not fit the data well.
+* Problem 2
+** a)
+#+begin_example
+1. Best epoch: 99
+2. Validation performance: 3.35808168628883
+3. Test performance: 3.2370463070784017
+#+end_example
+[[./images/q2a_loss.png]]
+[[./images/q2a_risk.png]]
+** b)
+#+begin_example
+best hyperparameter: 0.01
+1. Best epoch: 99
+2. Validation performance: 2.781912727526617
+3. Test performance: 2.7724722186569672
+#+end_example
+[[./images/q2b_loss.png]]
+[[./images/q2b_risk.png]]
+** c)
+*** Experiment
+An experiment was designed to investigate the effects of varying the step size with the extended point-wise quadratic features model from part b) above. It was predicted that too high of a step size might actually increase the training loss and risk due to missing the minimum by taking too large of a step. Additionally, too small of a step size might make it so that it takes more iterations to reach the minimum; maybe the minimum won't be reached in ~MaxIter~ iterations. (~MaxIter~ is set to 100 iterations.) It is also possible that changing the step size might change the best decay hyperparameter.
+
+The model from b) was tested with a step size starting from 100 and ending at \(1 \times 10 ^ -10\). The step size was divided by 10 each time. The set of possible hyperparameters was left unchanged, because the experiment is mainly focused on the effect of changing the step size.
+
+*** Results
+*** Conclusion
