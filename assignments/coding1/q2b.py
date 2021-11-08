@@ -3,7 +3,7 @@
 import sklearn.datasets as datasets
 import numpy as np
 import matplotlib.pyplot as plt
-
+import math
 
 def predict(X, w, y=None, denormalize=False):
     # X_new: Nsample x (d+1)
@@ -21,7 +21,7 @@ def predict(X, w, y=None, denormalize=False):
     
     return y_hat, loss.item(0), risk
 
-def train(X_train, y_train, X_val, y_val):
+def train(X_train, y_train, X_val, y_val, decay):
     N_train = X_train.shape[0] # number of samples
     N_val   = X_val.shape[0]   # number of validation samples
 
@@ -49,7 +49,7 @@ def train(X_train, y_train, X_val, y_val):
 
             # TODO: Your code here
             # Mini-batch gradient descent
-            w = w - 1/ len(y_batch) * alpha * (X_batch.T).dot(y_hat_batch-y_batch)
+            w = w - alpha * ( 1/ len(y_batch) * (X_batch.T).dot(y_hat_batch-y_batch) + decay * w)
 
         # TODO: Your code here
         # monitor model behavior after each epoch
@@ -70,7 +70,28 @@ def train(X_train, y_train, X_val, y_val):
     return epoch_best, risk_best, w_best, risks_val, losses_train
 
 
+def tune_hyperparameter(X_train, y_train, X_val, y_val, hyperparameters=(3, 1, 0.3, 0.1, 0.03, 0.01)):
+    lowest_risk = math.inf
+    best_param = None
+    epoch = None
+    risk = None
+    risk_plot = None
+    losses_plot = None
+    w_best = None
+    for h in hyperparameters:
+        best_epoch, best_risk, w, risks_val, losses_train = train(X_train, y_train, X_val, y_val, h)
+        lowest_risk = min(lowest_risk, best_risk)
+        if best_risk == lowest_risk:
+            best_param = h
+            epoch = best_epoch
+            risk = best_risk
+            risk_plot = risks_val
+            losses_plot = losses_train
+            w_best = w
 
+    return best_param, epoch, risk, w_best, risk_plot, losses_plot
+
+        
 ############################
 # Main code starts here
 ############################
@@ -81,12 +102,14 @@ y = y.reshape([-1, 1])
 # X: sample x dimension
 # y: sample x 1
 
-X = (X - np.mean(X, axis=0)) / np.std(X, axis=0)
+mean_X = np.mean(X, axis=0)
+std_X = np.std(X, axis=0)
+X = (X - mean_X) / std_X
 
-
+X_extended = np.concatenate((X, np.square(X)), axis=1)
 
 # Augment feature
-X_ = np.concatenate( ( np.ones([X.shape[0],1]), X ), axis=1)
+X_ = np.concatenate( ( np.ones([X_extended.shape[0],1]), X_extended ), axis=1)
 # X_: Nsample x (d+1)
 
 # normalize features:
@@ -125,13 +148,13 @@ decay = 0.0          # weight decay
 
 
 # TODO: Your code here
-best_epoch, best_risk, w, risks_val, losses_train = train(X_train, y_train, X_val, y_val)
+best_param, best_epoch, best_risk, w, risks_val, losses_train = tune_hyperparameter(X_train, y_train, X_val, y_val)
 y_hat, loss, test_risk = predict(X_test, w, y_test, denormalize=True)
-print(f"""2 a)
+print(f"""2 b)
+best hyperparameter: {best_param}
 1. Best epoch: {best_epoch}
 2. Validation performance: {best_risk}
 3. Test performance: {test_risk}""")
-print(f"test loss: {loss}")
 
 
 #print(risks_val)
@@ -145,6 +168,7 @@ plt.plot(range(MaxIter), risks_val)
 plt.xlabel("Epoch")
 plt.ylabel("Risk")
 plt.show()
+
 # Perform test by the weights yielding the best validation performance
 
 # Report numbers and draw plots as required. 
