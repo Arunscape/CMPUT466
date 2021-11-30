@@ -1,0 +1,38 @@
+#+TITLE: CMPUT 466 W8
+#+AUTHOR: Arun Woosaree
+#+OPTIONS: toc:nil num:nil
+#+LATEX_HEADER: \usepackage{amsthm}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{pdfpages}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_CLASS_OPTIONS: [letterpaper]
+#+LATEX_HEADER: \theoremstyle{definition}
+#+LATEX_HEADER: \newtheorem{definition}{Definition}[section]
+#+latex_header: \usepackage{bbm}
+#+LATEX_HEADER_EXTRA:  \usepackage{mdframed}
+#+LATEX_HEADER_EXTRA: \BeforeBeginEnvironment{minted}{\begin{mdframed}}
+#+LATEX_HEADER_EXTRA: \AfterEndEnvironment{minted}{\end{mdframed}}
+
+#+begin_src elisp :exports none
+(setq org-latex-listings 'minted
+      org-latex-packages-alist '(("" "minted"))
+      org-latex-minted-options '(("linenos" "true"))
+      org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+#+end_src
+
+#+RESULTS:
+| pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f | pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f |
+
+
+* Problem 1
+Naive Bayes assumption: the individual features/measurements are independent
+
+P(x | )
+* Problem 2
+MLE for naive Bayes.
+
+\[\arg \max_w \Pi_{m=1}^{M} P(t^{(m)}) P(x^{(m)}|t^{(m)})\]
+\[=\arg \max_w \log \Pi_{m=1}^{M} P(t^{(m)}) P(x^{(m)}|t^{(m)})\]
+\[=\arg \max_w  \sum_{m=1}^{M} \log P(t^{(m)}) P(x^{(m)}|t^{(m)})\]
