@@ -3,27 +3,29 @@ import numpy as np
 import struct
 import matplotlib.pyplot as plt
 from scipy.special import expit
+import scipy
+import scipy.sparse
 
 def readMNISTdata():
 
-    with open('t10k-images-idx3-ubyte','rb') as f:
+    with open('t10k-images.idx3-ubyte','rb') as f:
         magic, size = struct.unpack(">II", f.read(8))
         nrows, ncols = struct.unpack(">II", f.read(8))
         test_data = np.fromfile(f, dtype=np.dtype(np.uint8).newbyteorder('>'))
         test_data = test_data.reshape((size, nrows*ncols))
     
-    with open('t10k-labels-idx1-ubyte','rb') as f:
+    with open('t10k-labels.idx1-ubyte','rb') as f:
         magic, size = struct.unpack(">II", f.read(8))
         test_labels = np.fromfile(f, dtype=np.dtype(np.uint8).newbyteorder('>'))
         test_labels = test_labels.reshape((size,1))
     
-    with open('train-images-idx3-ubyte','rb') as f:
+    with open('train-images.idx3-ubyte','rb') as f:
         magic, size = struct.unpack(">II", f.read(8))
         nrows, ncols = struct.unpack(">II", f.read(8))
         train_data = np.fromfile(f, dtype=np.dtype(np.uint8).newbyteorder('>'))
         train_data = train_data.reshape((size, nrows*ncols))
     
-    with open('train-labels-idx1-ubyte','rb') as f:
+    with open('train-labels.idx1-ubyte','rb') as f:
         magic, size = struct.unpack(">II", f.read(8))
         train_labels = np.fromfile(f, dtype=np.dtype(np.uint8).newbyteorder('>'))
         train_labels = train_labels.reshape((size,1))
@@ -45,11 +47,18 @@ def readMNISTdata():
     return X_train, t_train, X_val, t_val, test_data, test_labels
 
 
+#def one_hot(x):
+#    # https://www.delftstack.com/howto/numpy/one-hot-encoding-numpy/
+#    ret = np.zeros((x.size, x.max()+1))
+#    ret[np.arange(x.size), x] = 1
+#    return ret
+
 def one_hot(x):
-    # https://www.delftstack.com/howto/numpy/one-hot-encoding-numpy/
-    ret = np.zeros((x.size, x.max()+1))
-    ret[np.arange(x.size), x] = 1
-    return ret
+    m = x.shape[0]
+    x = x[:,0]
+    oh = scipy.sparse.csr_matrix((np.ones(m), (x, np.array(range(m)))))
+    return np.array(oh.todense()).T
+
 
 def accuracy(x, w, t):
     prob = softmax(x @ w)
@@ -57,7 +66,7 @@ def accuracy(x, w, t):
     t = t.flatten()
     num_correct = np.sum(pred == t)
     num_incorrect = np.sum(pred != t)
-    return num_correct / num_incorrect
+    return num_correct / len(pred)
     
 
 def softmax(z):
@@ -115,7 +124,7 @@ def train(X_train, y_train, X_val, t_val):
             X_batch = X_train[b*batch_size : (b+1)*batch_size]
             y_batch = y_train[b*batch_size : (b+1)*batch_size]
 
-            loss_batch, g = loss_gradient(X_batch, w, t_batch)
+            loss_batch, g = loss_gradient(X_batch, w, y_batch)
             loss_this_epoch += loss_batch
 
             # TODO: Your code here
@@ -146,7 +155,7 @@ def train(X_train, y_train, X_val, t_val):
 X_train, t_train, X_val, t_val, X_test, t_test = readMNISTdata()
 
 
-print(X_train.shape, t_train.shape, X_val.shape, t_val.shape, X_test.shape, t_test.shape)
+#print(X_train.shape, t_train.shape, X_val.shape, t_val.shape, X_test.shape, t_test.shape)
 
 
 
@@ -156,7 +165,11 @@ alpha   = 0.1      # learning rate
 batch_size   = 100    # batch size
 MaxEpoch = 50        # Maximum epoch
 decay = 0.          # weight decay
-lam =  0.00000003
+#lam =  0.00000003
+lam = 0
+
+
+#np.seterr(divide='ignore', invalid='ignore', over='ignore')
 
 epoch_best, acc_best, W_best, losses_train, acc_train = train(X_train, t_train, X_val, t_val)
 

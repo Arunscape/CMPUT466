@@ -26,7 +26,8 @@ def train_logistic_regression(X, t):
     # initialize w
     w = np.zeros(X.shape[1])
 
-    for i in range(NUM_ITER)
+    for i in range(NUM_ITER):
+        pass
 
     return w, b
 
@@ -34,6 +35,7 @@ def predict_logistic_regression(X, w, b):
     """
     Generate predictions by your logistic classifier.
     """
+    t = 1 if sigmoid(X @ w + b) >= 0 else 0
 
     return t
 
@@ -44,8 +46,12 @@ def train_linear_regression(X, t):
     """
     def cross_entropy_loss(y):
         return -t * np.log(y) - (1-t) * np.log(1-y)
+    
+    w = np.zeros_like()
+    for epoch in range(NUM_ITER):
+        pass
+    b = None
 
-    for i in range
 
     return w, b
 
@@ -68,6 +74,7 @@ def main():
     # Dataset A
     # Linear regression classifier
     X, t = generate_data("A")
+    print(X.shape, t.shape)
     w, b = train_linear_regression(X, t)
     t_hat = predict_linear_regression(X, w, b)
     print("Accuracy of linear regression on dataset A:", get_accuracy(t_hat, t))
