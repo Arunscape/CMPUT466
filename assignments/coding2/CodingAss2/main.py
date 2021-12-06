@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from utils import plot_data, generate_data
 import numpy as np
 """
@@ -13,6 +15,7 @@ If you are plotting the decision boundary for a logistic classifier, set "is_log
 """
 
 NUM_ITER = 100
+alpha = 0.01
 
 def sigmoid(z):
     return 1 / (1 + np.exp(-z))
@@ -24,10 +27,13 @@ def train_logistic_regression(X, t):
     """
 
     # initialize w
-    w = np.zeros(X.shape[1])
-
-    for i in range(NUM_ITER):
-        pass
+    m = X.shape[1]
+    w = np.zeros(m)
+    b = 0
+    for _ in range(NUM_ITER):
+        y_hat = predict_logistic_regression(X, w, b)
+        w -= 1/m * alpha * X.T @ (y_hat - t)
+        b -= 1/m * alpha * np.sum(y_hat-t)
 
     return w, b
 
@@ -35,7 +41,9 @@ def predict_logistic_regression(X, w, b):
     """
     Generate predictions by your logistic classifier.
     """
-    t = 1 if sigmoid(X @ w + b) >= 0 else 0
+
+    # 1 if sigmoid(z) >= 0.5 else 0
+    t = sigmoid(X @ w + b) >= 0.5
 
     return t
 
@@ -46,12 +54,13 @@ def train_linear_regression(X, t):
     """
     def cross_entropy_loss(y):
         return -t * np.log(y) - (1-t) * np.log(1-y)
-    
-    w = np.zeros_like()
-    for epoch in range(NUM_ITER):
-        pass
-    b = None
-
+    m = X.shape[1]
+    w = np.zeros(m)
+    b = 0
+    for _ in range(NUM_ITER):
+        y_hat = predict_linear_regression(X, w, b)
+        w -= 1/m * alpha * X.T @ (y_hat-t)
+        b -= 1/m * alpha * np.sum(y_hat-t)
 
     return w, b
 
@@ -59,7 +68,7 @@ def predict_linear_regression(X, w, b):
     """
     Generate predictions by your logistic classifier.
     """
-    t = 1 if (X @ w + b) >= 0 else 0
+    t = (X @ w + b) >= 0
     return t
 
 def get_accuracy(t, t_hat):
@@ -68,6 +77,7 @@ def get_accuracy(t, t_hat):
     """
 
     # number correctly predicted / number total samples
+    acc = np.sum(t == t_hat) / len(t)
     return acc
 
 def main():

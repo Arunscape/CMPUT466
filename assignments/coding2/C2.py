@@ -150,6 +150,27 @@ def train(X_train, y_train, X_val, t_val):
     return epoch_best, acc_best, w_best, losses_train, accuracies
 
 
+num_batches = 50
+def plot_training_losses(losses_train):
+    fig = plt.figure()
+    plt.plot(losses_train, label="Training Losses")
+    plt.title("Training Losses\n{}".format(f"alpha={alpha} num_batches={num_batches} batch_size={batch_size} MaxEpoch={MaxEpoch} decay={decay} lam={lam}"))
+    plt.legend()
+    plt.xlabel('Number of epoch')
+    plt.ylabel('Training Loss')
+    plt.show()
+    
+    
+def plot_training_accuracy(acc_val):
+    fig = plt.figure()
+    plt.plot(acc_val, label="Validation Accuracy")
+    plt.title("Validation Accuracy\n{}".format(f"alpha={alpha} num_batches={num_batches} batch_size={batch_size} MaxEpoch={MaxEpoch} decay={decay} lam={lam}"))
+    plt.legend()
+    plt.xlabel('Number of epoch')
+    plt.ylabel('Validation Accuracy')
+    plt.show()
+
+
 ##############################
 #Main code starts here
 X_train, t_train, X_val, t_val, X_test, t_test = readMNISTdata()
@@ -178,4 +199,6 @@ _, _, _, acc_test = predict(X_test, W_best, t_test)
 
 print('At epoch', epoch_best, 'val: ', acc_best, 'test:', acc_test, 'train:', acc_train)
 
+plot_training_accuracy(acc_train)
+plot_training_losses(losses_train)
 
