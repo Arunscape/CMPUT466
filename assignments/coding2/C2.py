@@ -59,6 +59,11 @@ def one_hot(x):
     oh = scipy.sparse.csr_matrix((np.ones(m), (x, np.array(range(m)))))
     return np.array(oh.todense()).T
 
+#def one_hot(y):
+#    y_hot = np.zeros((len(y), N_class))
+#    y_hot[np.arange(len(y)), y] = 1
+#    return y_hot
+
 
 def accuracy(x, w, t):
     prob = softmax(x @ w)
