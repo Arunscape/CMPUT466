@@ -72,14 +72,6 @@ def softmax(z):
     sm = np.exp(z).T / np.sum(np.exp(z), axis=1)
     return sm.T
 
-def loss_gradient(x, w, t):
-    global lam
-    m = x.shape[0]
-    loss = -1/m * np.sum(one_hot(t) * np.log(softmax(x @ w))) #+ lam/2 * np.sum(w * w)
-    gradient = -1/m * x.T @ (one_hot(t) - softmax(x @ w)) #+ lam * w
-
-    return loss, gradient
-    
 def accuracy(t, t_hat):
     return np.sum(t_hat == t.flatten()) / len(t_hat)
 
@@ -118,6 +110,13 @@ def train(X_train, y_train, X_val, t_val):
     w_best = None
     epoch_best = 0
     acc_best = 0
+
+    def loss_gradient(x, w, t):
+        m = x.shape[0]
+        loss = -1/m * np.sum(one_hot(t) * np.log(softmax(x @ w)))
+        gradient = -1/m * x.T @ (one_hot(t) - softmax(x @ w))
+    
+        return loss, gradient
 
     for epoch in range(MaxEpoch):
         loss_this_epoch = 0
@@ -158,7 +157,7 @@ num_batches = 50
 def plot_training_losses(losses_train):
     fig = plt.figure()
     plt.plot(losses_train, label="Training Losses")
-    plt.title("Training Losses\n{}".format(f"alpha={alpha} num_batches={num_batches} batch_size={batch_size} MaxEpoch={MaxEpoch} decay={decay} lam={lam}"))
+    plt.title("Training Losses\n{}".format(f"alpha={alpha} num_batches={num_batches} batch_size={batch_size} MaxEpoch={MaxEpoch} decay={decay}"))
     plt.legend()
     plt.xlabel('Number of epoch')
     plt.ylabel('Training Loss')
@@ -168,7 +167,7 @@ def plot_training_losses(losses_train):
 def plot_training_accuracy(acc_val):
     fig = plt.figure()
     plt.plot(acc_val, label="Validation Accuracy")
-    plt.title("Validation Accuracy\n{}".format(f"alpha={alpha} num_batches={num_batches} batch_size={batch_size} MaxEpoch={MaxEpoch} decay={decay} lam={lam}"))
+    plt.title("Validation Accuracy\n{}".format(f"alpha={alpha} num_batches={num_batches} batch_size={batch_size} MaxEpoch={MaxEpoch} decay={decay}"))
     plt.legend()
     plt.xlabel('Number of epoch')
     plt.ylabel('Validation Accuracy')
@@ -189,9 +188,7 @@ N_class = 10
 alpha   = 0.1      # learning rate
 batch_size   = 100    # batch size
 MaxEpoch = 50        # Maximum epoch
-decay = 0.          # weight decay
-#lam =  0.00000003
-lam = 0
+decay = 0          # weight decay
 
 
 #np.seterr(divide='ignore', invalid='ignore', over='ignore')
