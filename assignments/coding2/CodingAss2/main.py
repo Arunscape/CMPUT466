@@ -14,7 +14,7 @@ If you are plotting the decision boundary for a logistic classifier, set "is_log
 "figure_name" specifies the name of the saved diagram.
 """
 
-NUM_ITER = 100
+NUM_ITER = 1000000
 alpha = 0.01
 
 def sigmoid(z):
@@ -25,15 +25,14 @@ def train_logistic_regression(X, t):
     Given data, train your logistic classifier.
     Return weight and bias
     """
-
     # initialize w
-    m = X.shape[1]
+    n, m = X.shape
     w = np.zeros(m)
     b = 0
     for _ in range(NUM_ITER):
-        y_hat = predict_logistic_regression(X, w, b)
-        w -= 1/m * alpha * X.T @ (y_hat - t)
-        b -= 1/m * alpha * np.sum(y_hat-t)
+        y_hat = sigmoid(X @ w  + b)
+        w -= alpha * X.T @ (y_hat-t) / m
+        b -= alpha * np.sum(y_hat-t) / m
 
     return w, b
 
@@ -44,24 +43,25 @@ def predict_logistic_regression(X, w, b):
 
     # 1 if sigmoid(z) >= 0.5 else 0
     t = sigmoid(X @ w + b) >= 0.5
-
-    return t
+    return t * 1
 
 def train_linear_regression(X, t):
     """
     Given data, train your linear regression classifier.
     Return weight and bias
     """
-    def cross_entropy_loss(y):
-        return -t * np.log(y) - (1-t) * np.log(1-y)
-    m = X.shape[1]
+    n, m = X.shape
+    
     w = np.zeros(m)
     b = 0
-    for _ in range(NUM_ITER):
-        y_hat = predict_linear_regression(X, w, b)
-        w -= 1/m * alpha * X.T @ (y_hat-t)
-        b -= 1/m * alpha * np.sum(y_hat-t)
 
+
+    X = np.append(X, np.ones((n,1)), axis=1) 
+
+    w = np.linalg.inv((X.T).dot(X)).dot(X.T).dot(t)
+
+    b = w[-1]
+    w = w[:-1]
     return w, b
 
 def predict_linear_regression(X, w, b):
@@ -69,7 +69,7 @@ def predict_linear_regression(X, w, b):
     Generate predictions by your logistic classifier.
     """
     t = (X @ w + b) >= 0
-    return t
+    return t * 1
 
 def get_accuracy(t, t_hat):
     """
@@ -94,7 +94,7 @@ def main():
     X, t = generate_data("A")
     w, b = train_logistic_regression(X, t)
     t_hat = predict_logistic_regression(X, w, b)
-    print("Accuracy of linear regression on dataset A:", get_accuracy(t_hat, t))
+    print("Accuracy of logistic regression on dataset A:", get_accuracy(t_hat, t))
     plot_data(X, t, w, b, is_logistic=True, figure_name='dataset_A_logistic.png')
 
     # Dataset B
@@ -109,7 +109,7 @@ def main():
     X, t = generate_data("B")
     w, b = train_logistic_regression(X, t)
     t_hat = predict_logistic_regression(X, w, b)
-    print("Accuracy of linear regression on dataset B:", get_accuracy(t_hat, t))
+    print("Accuracy of logistic regression on dataset B:", get_accuracy(t_hat, t))
     plot_data(X, t, w, b, is_logistic=True, figure_name='dataset_B_logistic.png')
 
 main()
