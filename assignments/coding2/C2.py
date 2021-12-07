@@ -65,13 +65,6 @@ def one_hot(x):
 #    return y_hot
 
 
-def accuracy(x, w, t):
-    prob = softmax(x @ w)
-    pred = np.argmax(prob, axis=1)
-    t = t.flatten()
-    num_correct = np.sum(pred == t)
-    num_incorrect = np.sum(pred != t)
-    return num_correct / len(pred)
     
 
 def softmax(z):
@@ -82,28 +75,31 @@ def softmax(z):
 def loss_gradient(x, w, t):
     global lam
     m = x.shape[0]
-    loss = -1/m * np.sum(one_hot(t) * np.log(softmax(x @ w))) + lam/2 * np.sum(w * w)
-    gradient = -1/m * x.T @ (one_hot(t) - softmax(x @ w)) + lam * w
+    loss = -1/m * np.sum(one_hot(t) * np.log(softmax(x @ w))) #+ lam/2 * np.sum(w * w)
+    gradient = -1/m * x.T @ (one_hot(t) - softmax(x @ w)) #+ lam * w
 
     return loss, gradient
     
+def accuracy(t, t_hat):
+    return np.sum(t_hat == t.flatten()) / len(t_hat)
 
 # https://gist.github.com/awjuliani/5ce098b4b76244b7a9e3#file-softmax-ipynb
-def predict(X, W, t = None):
+# https://towardsdatascience.com/softmax-regression-in-python-multi-class-classification-3cb560d90cb2
+def predict(X, w, t = None):
     # X_new: Nsample x (d+1)
     # W: (d+1) x K
 
     # TODO Your code here
-    y = X @ W
-    t_hat = np.argmax(y, axis=1)
+    y = X @ w
+    y_hat = softmax(y)
+    t_hat = np.argmax(y_hat, axis=1)
 
     # # of training samples
     m = X.shape[0]
 
-    loss, _ = loss_gradient(X, W, t)
-
-    acc = accuracy(X, W, t)
-
+    #loss, _ = loss_gradient(X, w, t)
+    loss = -1/m * np.sum(one_hot(t) * np.log(y_hat)) #+ lam/2 * np.sum(w * w)
+    acc = accuracy(t, t_hat)
 
     return y, t_hat, loss, acc
 
@@ -142,10 +138,13 @@ def train(X_train, y_train, X_val, t_val):
         training_loss = loss_this_epoch/int(np.ceil(N_train/batch_size))
         losses_train.append(training_loss)
         # 2. Perform validation on the validation test by the risk
-        acc = accuracy(X_val, w, t_val)
+        _, _, _, acc = predict(X_val, w, t_val)
         accuracies.append(acc)
         # 3. Keep track of the best validation epoch, risk, and the weights
         #print(risks_val)
+
+        print("loss: ", training_loss)
+        print("accuracy: ", acc)
         if acc_best < acc:
             epoch_best = epoch
             acc_best = acc
