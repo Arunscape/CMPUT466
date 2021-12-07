@@ -68,9 +68,18 @@ def one_hot(x):
     
 
 def softmax(z):
-    z -= np.max(z)
-    sm = np.exp(z).T / np.sum(np.exp(z), axis=1)
-    return sm.T
+    #z -= np.max(z)
+    #sm = np.exp(z).T / np.sum(np.exp(z), axis=1)
+    #return sm.T
+
+    # https://stackoverflow.com/a/39558290
+    #assert len(z.shape) == 2
+    s = np.max(z, axis=1)
+    s = s[:, np.newaxis] # necessary step to do broadcasting
+    e_x = np.exp(z - s)
+    div = np.sum(e_x, axis=1)
+    div = div[:, np.newaxis] # dito
+    return e_x / div
 
 def accuracy(t, t_hat):
     return np.sum(t_hat == t.flatten()) / len(t_hat)
@@ -81,7 +90,6 @@ def predict(X, w, t = None):
     # X_new: Nsample x (d+1)
     # W: (d+1) x K
 
-    # TODO Your code here
     y = X @ w
     y_hat = softmax(y)
     t_hat = np.argmax(y_hat, axis=1)
@@ -89,8 +97,7 @@ def predict(X, w, t = None):
     # # of training samples
     m = X.shape[0]
 
-    #loss, _ = loss_gradient(X, w, t)
-    loss = -1/m * np.sum(one_hot(t) * np.log(y_hat)) #+ lam/2 * np.sum(w * w)
+    loss = -1/m * np.sum(one_hot(t) * np.log(y_hat))
     acc = accuracy(t, t_hat)
 
     return y, t_hat, loss, acc
@@ -100,7 +107,7 @@ def train(X_train, y_train, X_val, t_val):
     global lam, MaxEpoch
 
     N_train = X_train.shape[0]
-    N_val   = X_val.shape[0]
+    #N_val   = X_val.shape[0]
    
     w = np.zeros([X_train.shape[1], N_class])
 
@@ -113,11 +120,14 @@ def train(X_train, y_train, X_val, t_val):
 
     def loss_gradient(x, w, t):
         m = x.shape[0]
-        loss = -1/m * np.sum(one_hot(t) * np.log(softmax(x @ w)))
-        gradient = -1/m * x.T @ (one_hot(t) - softmax(x @ w))
+        t_hot = one_hot(t)
+        y_hat = softmax(x @ w)
+        loss = -1/m * np.sum(t_hot * np.log(y_hat))
+        gradient = -1/m * x.T @ (t_hot - y_hat)
     
         return loss, gradient
 
+    print("{: >10} {: >20} {: >10}".format("epoch", "loss", "accuracy"))
     for epoch in range(MaxEpoch):
         loss_this_epoch = 0
         for b in range(int(np.ceil(N_train/batch_size)) ):
@@ -142,9 +152,8 @@ def train(X_train, y_train, X_val, t_val):
         # 3. Keep track of the best validation epoch, risk, and the weights
         #print(risks_val)
 
-        print("loss: ", training_loss)
-        print("accuracy: ", acc)
-        if acc_best < acc:
+        print("{: >10} {: >20} {: >10}".format(epoch, training_loss, acc))
+        if acc_best <= acc:
             epoch_best = epoch
             acc_best = acc
             w_best = w
@@ -195,11 +204,13 @@ decay = 0          # weight decay
 
 epoch_best, acc_best, W_best, losses_train, acc_train = train(X_train, t_train, X_val, t_val)
 
+print("Done training, time to predict")
 _, _, _, acc_test = predict(X_test, W_best, t_test)
 
 
 print('At epoch', epoch_best, 'val: ', acc_best, 'test:', acc_test, 'train:', acc_train)
 
+#print("loss test", loss_test)
 plot_training_accuracy(acc_train)
 plot_training_losses(losses_train)
 
