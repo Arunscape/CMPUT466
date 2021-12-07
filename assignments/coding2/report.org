@@ -1,0 +1,30 @@
+#+title: CMPUT 466 Coding Assignment 2
+#+author: Arun Woosaree
+#+OPTIONS: toc:nil num:nil
+#+LATEX_HEADER: \usepackage{amsthm}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{pdfpages}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_CLASS_OPTIONS: [letterpaper]
+
+
+* Problem 1
+** 1 Training Accuracy of linear regression on Dataset A
+[[./CodingAss2/dataset_A_linear.png]]
+
+Training accuracy: 0.6025
+
+** 2 Training Accuracy of logistic regression on Dataset B
+[[./CodingAss2/dataset_A_logistic.png]]
+
+Training accuracy: 0.92
+
+** 3 Training Accuracy of linear regression on Dataset A
+[[./CodingAss2/dataset_B_linear.png]]
+
+Training accuracy: 0.5
+
+** 4 Training Accuracy of logistic regression on Dataset B
+[[./CodingAss2/dataset_B_logistic.png]]
+
+Training accuracy: 0.9375
