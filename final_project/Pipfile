@@ -7,6 +7,7 @@ name = "pypi"
 torch = "*"
 torchvision = "*"
 torchaudio = "*"
+kaggle = "*"
 
 [dev-packages]
 
