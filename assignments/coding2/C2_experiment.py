@@ -119,6 +119,8 @@ def train(X_train, y_train, X_val, t_val):
     epoch_best = 0
     acc_best = 0
 
+    anneal = -1e-6
+
     def loss_gradient(x, w, t):
         m = x.shape[0]
         t_hot = one_hot(t)
@@ -141,7 +143,9 @@ def train(X_train, y_train, X_val, t_val):
 
             # TODO: Your code here
             # Mini-batch gradient descent
-            w -= alpha*g - alpha*decay*w
+            #anneal += 2.5e-6
+            anneal -= 1e-6
+            w -= (alpha-anneal)*g - alpha*decay*w
 
         # TODO: Your code here
         # monitor model behavior after each epoch
@@ -165,7 +169,7 @@ def train(X_train, y_train, X_val, t_val):
 
 
 num_batches = 50
-def plot_training_losses(losses_train, filename="loss_p2.png"):
+def plot_training_losses(losses_train, filename="loss_1e-6.png"):
     fig = plt.figure()
     plt.plot(losses_train, label="Training Losses")
     plt.title("Training Losses\n{}".format(f"alpha={alpha} num_batches={num_batches} batch_size={batch_size} MaxEpoch={MaxEpoch}"))
@@ -176,7 +180,7 @@ def plot_training_losses(losses_train, filename="loss_p2.png"):
     plt.savefig(filename)
     
     
-def plot_training_accuracy(acc_val, filename="acc_p2.png"):
+def plot_training_accuracy(acc_val, filename="acc_1e-6.png"):
     fig = plt.figure()
     plt.plot(acc_val, label="Validation Accuracy")
     plt.title("Validation Accuracy\n{}".format(f"alpha={alpha} num_batches={num_batches} batch_size={batch_size} MaxEpoch={MaxEpoch}"))
