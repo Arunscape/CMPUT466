@@ -11,6 +11,9 @@ matplotlib = "*"
 ipykernel = "*"
 numpy = "*"
 kaggle = "*"
+pandas = "*"
+sklearn = "*"
+mlxtend = "*"
 
 [dev-packages]
 

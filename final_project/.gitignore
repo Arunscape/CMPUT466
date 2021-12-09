@@ -5,6 +5,4 @@ PetImages/
 readme\[1\].txt
 sampleSubmission.csv
 *.zip
-input/
-output/
-data/
+spam.csv
