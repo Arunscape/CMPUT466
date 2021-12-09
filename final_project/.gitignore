@@ -1,6 +1,10 @@
 .env
 .vscode/
-kagglecatsanddogs_3367a.zip
 PetImages/
 *.docx
 readme\[1\].txt
+sampleSubmission.csv
+*.zip
+input/
+output/
+data/

@@ -9,6 +9,8 @@ torchvision = "*"
 torchaudio = "*"
 matplotlib = "*"
 ipykernel = "*"
+numpy = "*"
+kaggle = "*"
 
 [dev-packages]
 
