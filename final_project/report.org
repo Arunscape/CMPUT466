@@ -1,0 +1,51 @@
+#+title: CMPUT 466 Final Project
+#+author: Arun Woosaree
+#+OPTIONS: toc:nil num:nil
+#+LATEX_HEADER: \usepackage{amsthm}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{pdfpages}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_CLASS_OPTIONS: [letterpaper]
+
+
+Formulating a task into a machine learning problem. The student CANNOT re-use any task in coding assignments (namely, house price and MNIST datasets) as the course project.
+
+Implementing a training-validation-test infrastructure, with a systematic way of hyperparameter tuning. The meaning of “training,” “validation,” “test,” and “hyperparameter” will be clear very soon.
+
+Comparing at least three machine learning algorithms. In addition, include a trivial baseline (if possible). For example, a majority guess for k-category classification yields 1/k accuracy. The machine learning algorithms must be reasonable for solving the task, and differ in some way (e.g., having different hyperparameters do not count as different machine learning algorithms).
+
+* Introduction
+A short introduction, describing the background of the task
+
+This project focuses on the task of classifying text as "spam" or "not spam" using different machine learning algorithms.
+Spam detectors are important tools used everyday by people, like when checking emails. Receiving spam is not fun, but with
+the help of machine learning we can learn a classifier that can do the work of filtering out junk messages for us.
+
+* Problem Formulation
+Problem formulation (what is input, what is output, where did you get the dataset, number of samples, etc.)
+
+The inputs to the models are text messages and the output is "1" if the message is spam, or "0" if the message is not spam.
+The dataset used for this project is originally from https://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection and https://www.dt.fee.unicamp.br/~tiago/smsspamcollection/. It was conveniently converted to a comma-separated value format obtained from https://www.kaggle.com/uciml/sms-spam-collection-dataset.
+The messages from the dataset are from a collection of free and for research sources from the internet with a total of about
+5572 messages. Parts of the data come from Grumbletext, NUS SMS Corpus, Caroline Tag's PhD thesis, and SMS Spam Corpus v.0.1.
+More details about the dataset can be found from the above links.
+
+
+There are more legitimate messages in the dataset than spam messages. The bar chart below illustrates the relative difference in the number of spam messages versus legitimate messages:
+[[./images/histogram.png]]
+
+
+* Approaches and baselines
+Approaches and baselines (what are the hyperparameters of each approach/baseline, how do you tune them)?
+
+
+
+* Evaluation metric
+Evaluation metric (what is the measure of success, is it the real goal of the task, or an approximation? If it’s an approximation, why is it a reasonable approximation?)
+
+Because there are more legitimate messages than spam messages in the dataset, a trivial classifier would be
+to label all messages as legitimate. This yields an accuracy of 0.8659368269921034. Thus, the metric to beat is about
+87% accuracy. If a learned model does not meet this threshold of accuracy, it is useless.
+
+* Results
+Results. (What is the result of the approaches? How is it compared with baselines? How do you interpret the results?)
