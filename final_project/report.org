@@ -19,7 +19,8 @@ A short introduction, describing the background of the task
 
 This project focuses on the task of classifying text as "spam" or "not spam" using different machine learning algorithms.
 Spam detectors are important tools used everyday by people, like when checking emails. Receiving spam is not fun, but with
-the help of machine learning we can learn a classifier that can do the work of filtering out junk messages for us.
+the help of machine learning we can learn a classifier that can do the work of filtering out junk messages for us. In this
+final project for CMPUT 466, we attempt training/tuning the following types of models: Linear Regression, Logistic Regression, Naive Bayes, and a Multilayer Perceptron neural network.
 
 * Problem Formulation
 Problem formulation (what is input, what is output, where did you get the dataset, number of samples, etc.)
@@ -31,7 +32,7 @@ The messages from the dataset are from a collection of free and for research sou
 More details about the dataset can be found from the above links.
 
 
-There are more legitimate messages in the dataset than spam messages. The bar chart below illustrates the relative difference in the number of spam messages versus legitimate messages:
+There are more legitimate messages in the dataset than spam messages. The bar chart below illustrates the relative difference in the number of spam messages versus the number of legitimate messages:
 [[./images/histogram.png]]
 
 
