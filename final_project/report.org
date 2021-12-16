@@ -15,7 +15,7 @@ Implementing a training-validation-test infrastructure, with a systematic way of
 Comparing at least three machine learning algorithms. In addition, include a trivial baseline (if possible). For example, a majority guess for k-category classification yields 1/k accuracy. The machine learning algorithms must be reasonable for solving the task, and differ in some way (e.g., having different hyperparameters do not count as different machine learning algorithms).
 
 * Introduction
-A short introduction, describing the background of the task
+# A short introduction, describing the background of the task
 
 This project focuses on the task of classifying text as "spam" or "not spam" using different machine learning algorithms.
 Spam detectors are important tools used everyday by people, like when checking emails. Receiving spam is not fun, but with
@@ -23,7 +23,7 @@ the help of machine learning we can learn a classifier that can do the work of f
 final project for CMPUT 466, we attempt training/tuning the following types of models: Linear Regression, Logistic Regression, Naive Bayes, and a Multilayer Perceptron neural network.
 
 * Problem Formulation
-Problem formulation (what is input, what is output, where did you get the dataset, number of samples, etc.)
+# Problem formulation (what is input, what is output, where did you get the dataset, number of samples, etc.)
 
 The inputs to the models are text messages and the output is "1" if the message is spam, or "0" if the message is not spam.
 The dataset used for this project is originally from https://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection and https://www.dt.fee.unicamp.br/~tiago/smsspamcollection/. It was conveniently converted to a comma-separated value format obtained from https://www.kaggle.com/uciml/sms-spam-collection-dataset.
@@ -37,16 +37,84 @@ There are more legitimate messages in the dataset than spam messages. The bar ch
 
 
 * Approaches and baselines
-Approaches and baselines (what are the hyperparameters of each approach/baseline, how do you tune them)?
+# Approaches and baselines (what are the hyperparameters of each approach/baseline, how do you tune them)?
 
+Features were extracted from input text using the TF-IDF measure. Term Frequency
+Inverse Document Frequency is a statistical measure that reflects how important
+a word is to a document in a collection of documents. It increases
+proportionally to the number of times a word appears in a document, but is also
+offset by the number documents that also contain that word. This helps to offset
+the effect of common words like "the" appearing frequently.
 
+For all models, the defaults in scikit-learn were used as a baseline.
+A grid search was used to select the best combination of parameters.
+
+** Linear Regression
+The linear regression classifier likely would not be useful, but the results might be interesting.
+There are no hyperparameters to tune in this approach.
+
+** Logistic Regression
+
+*** Baseline
+For logistic regression, the following hyperparameters were used as a baseline:
+- penalty: l2 (can also use none, l1, or elasticnet)
+- tolerance for stopping criteria: 1e-4
+*** Other Approaches:
+- I see no use in modifying the stopping criteria, so we will try changing the penalty used. These are the parameters which were tried out with an exhaustive grid search.
+  #+begin_example
+  params = {
+    'solver': ('newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga'),
+    'params': ('l1', 'l2', 'elasticnet', 'none'),
+}
+  #+end_example
+
+** Naive Bayes
+For naive Bayes, no hyperparameters were tuned
+
+** Perceptron
+*** Baseline
+For the perceptron, the following hyperparameters were used as a baseline:
+- penalty: none (can also use l1, l2, elasticnet)
+- max iterations: 1000
+- tolerance for stopping criteria: 1e-3
+*** Other Approaches
++ l1 penalty
++ l2 penalty
++ elasticnet (l1+l2) penalty
++ max iterations
+
+** Multilayer Perceptron
+*** Baseline
+For multilayer perceptron, the following hyperparameters were used as a baseline:
+- activation: relu (can choose identity, logistic, tanh)
+- hidden layer sizes: (100,)
+- solver: adam (can also use lbfgs, sgd)
+- learning rate: constant (can also use invscaling, adaptive)
+- max iterations: 200
+*** Other Approaches
++ max iterations
++ relu
++ identity
++ logistic
++ tanh
++ hidden layer size (100, 50, 25)
++ hidden layer size (100, 80, 60, 40, 20, 10)
++ hidden layer size (100, 50)
++ learning rate invscaling
++ learning rate adaptive
++ max iterations 400
++ max iterations 800
++ max iterations 1600
 
 * Evaluation metric
-Evaluation metric (what is the measure of success, is it the real goal of the task, or an approximation? If it’s an approximation, why is it a reasonable approximation?)
+# Evaluation metric (what is the measure of success, is it the real goal of the task, or an approximation? If it’s an approximation, why is it a reasonable approximation?)
 
 Because there are more legitimate messages than spam messages in the dataset, a trivial classifier would be
 to label all messages as legitimate. This yields an accuracy of 0.8659368269921034. Thus, the metric to beat is about
 87% accuracy. If a learned model does not meet this threshold of accuracy, it is useless.
+
+To measure the effectiveness of the classifier selected, 5-fold cross-validation was used for each classifier.
+An average was taken of the five accuracy scores, and compared to the 0.8659368269921034 baseline. If the accuracy was higher than this threshold, it is considered useful for the task of detecting spam.
 
 * Results
 Results. (What is the result of the approaches? How is it compared with baselines? How do you interpret the results?)
