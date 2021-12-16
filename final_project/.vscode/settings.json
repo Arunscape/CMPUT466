@@ -1,0 +1,5 @@
+{
+    "python.venvPath": "/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/bin/python",
+    "python.pythonPath": "/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/bin/python",
+    "python.formatting.provider": "black",
+}

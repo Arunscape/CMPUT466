@@ -1,0 +1,211 @@
+[
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stdout",
+				"data": "Fitting 5 folds for each of 20 candidates, totalling 100 fits\n[CV 2/5] END ........penalty=l1, solver=newton-cg;, score=nan total time=   3.0s\n[CV 4/5] END ............penalty=l1, solver=lbfgs;, score=nan total time=   3.0s\n[CV 1/5] END ........penalty=l1, solver=newton-cg;, score=nan total time=   3.3s\n[CV 5/5] END ............penalty=l1, solver=lbfgs;, score=nan total time=   3.4s\n[CV 1/5] END ..............penalty=l1, solver=sag;, score=nan total time=   3.3s\n[CV 1/5] END ............penalty=l1, solver=lbfgs;, score=nan total time=   3.4s\n[CV 2/5] END ............penalty=l1, solver=lbfgs;, score=nan total time=   3.4s\n[CV 3/5] END ........penalty=l1, solver=newton-cg;, score=nan total time=   3.5s\n[CV 4/5] END ........penalty=l1, solver=newton-cg;, score=nan total time=   3.5s\n[CV 5/5] END ........penalty=l1, solver=newton-cg;, score=nan total time=   3.5s\n[CV 3/5] END ............penalty=l1, solver=lbfgs;, score=nan total time=   3.5s\n[CV 3/5] END ......penalty=l1, solver=liblinear;, score=0.967 total time=   3.7s\n[CV 1/5] END ......penalty=l1, solver=liblinear;, score=0.966 total time=   4.2s\n[CV 2/5] END ......penalty=l1, solver=liblinear;, score=0.970 total time=   4.6s\n[CV 5/5] END ......penalty=l1, solver=liblinear;, score=0.951 total time=   4.7s\n[CV 4/5] END ......penalty=l1, solver=liblinear;, score=0.951 total time=   4.8s\n[CV 2/5] END ..............penalty=l1, solver=sag;, score=nan total time=   1.6s\n[CV 4/5] END ..............penalty=l1, solver=sag;, score=nan total time=   1.9s\n[CV 3/5] END ..............penalty=l1, solver=sag;, score=nan total time=   2.2s\n[CV 5/5] END ..............penalty=l1, solver=sag;, score=nan total time=   2.1s\n[CV 1/5] END ......penalty=l2, solver=liblinear;, score=0.962 total time=   4.4s\n[CV 3/5] END ..........penalty=l2, solver=lbfgs;, score=0.961 total time=  10.2s\n[CV 2/5] END ......penalty=l2, solver=liblinear;, score=0.963 total time=   5.1s\n[CV 1/5] END ..........penalty=l2, solver=lbfgs;, score=0.961 total time=  11.0s\n[CV 5/5] END ..........penalty=l2, solver=lbfgs;, score=0.963 total time=  10.4s\n[CV 2/5] END ..........penalty=l2, solver=lbfgs;, score=0.962 total time=  11.7s\n[CV 4/5] END ..........penalty=l2, solver=lbfgs;, score=0.957 total time=  11.5s\n[CV 4/5] END ......penalty=l2, solver=liblinear;, score=0.957 total time=   4.0s\n[CV 3/5] END ......penalty=l2, solver=liblinear;, score=0.961 total time=   4.9s\n[CV 5/5] END ......penalty=l2, solver=liblinear;, score=0.963 total time=   4.3s\n[CV 3/5] END ............penalty=l2, solver=sag;, score=0.961 total time=  16.2s\n[CV 1/5] END ............penalty=l2, solver=sag;, score=0.961 total time=  17.5s\n[CV 1/5] END ...........penalty=l2, solver=saga;, score=0.961 total time=  14.5s\n[CV 2/5] END ............penalty=l2, solver=sag;, score=0.962 total time=  18.7s\n[CV 4/5] END ............penalty=l2, solver=sag;, score=0.957 total time=  16.7s\n[CV 1/5] END ......penalty=l2, solver=newton-cg;, score=0.961 total time=  34.5s\n[CV 1/5] END penalty=elasticnet, solver=newton-cg;, score=nan total time=   1.0s\n[CV 3/5] END ......penalty=l2, solver=newton-cg;, score=0.961 total time=  34.6s\n[CV 2/5] END ......penalty=l2, solver=newton-cg;, score=0.962 total time=  34.9s\n[CV 2/5] END penalty=elasticnet, solver=newton-cg;, score=nan total time=   1.3s\n[CV 3/5] END penalty=elasticnet, solver=newton-cg;, score=nan total time=   1.4s\n[CV 5/5] END ......penalty=l2, solver=newton-cg;, score=0.963 total time=  35.4s\n[CV 5/5] END ............penalty=l2, solver=sag;, score=0.963 total time=  19.8s\n[CV 4/5] END penalty=elasticnet, solver=newton-cg;, score=nan total time=   1.7s\n[CV 5/5] END penalty=elasticnet, solver=newton-cg;, score=nan total time=   1.3s\n[CV 4/5] END ......penalty=l2, solver=newton-cg;, score=0.957 total time=  36.5s\n[CV 2/5] END ....penalty=elasticnet, solver=lbfgs;, score=nan total time=   1.4s\n[CV 1/5] END ....penalty=elasticnet, solver=lbfgs;, score=nan total time=   1.5s\n[CV 3/5] END ....penalty=elasticnet, solver=lbfgs;, score=nan total time=   1.3s\n[CV 4/5] END ....penalty=elasticnet, solver=lbfgs;, score=nan total time=   1.2s\n[CV 5/5] END ....penalty=elasticnet, solver=lbfgs;, score=nan total time=   1.1s\n[CV 1/5] END penalty=elasticnet, solver=liblinear;, score=nan total time=   1.2s\n[CV 4/5] END penalty=elasticnet, solver=liblinear;, score=nan total time=   0.8s\n[CV 2/5] END penalty=elasticnet, solver=liblinear;, score=nan total time=   1.0s\n[CV 3/5] END penalty=elasticnet, solver=liblinear;, score=nan total time=   0.9s\n[CV 5/5] END penalty=elasticnet, solver=liblinear;, score=nan total time=   0.9s\n[CV 1/5] END ......penalty=elasticnet, solver=sag;, score=nan total time=   1.2s\n[CV 2/5] END ......penalty=elasticnet, solver=sag;, score=nan total time=   1.1s\n[CV 3/5] END ......penalty=elasticnet, solver=sag;, score=nan total time=   1.0s\n[CV 4/5] END ......penalty=elasticnet, solver=sag;, score=nan total time=   0.9s\n[CV 5/5] END ......penalty=elasticnet, solver=sag;, score=nan total time=   1.5s\n[CV 1/5] END .....penalty=elasticnet, solver=saga;, score=nan total time=   1.3s\n[CV 2/5] END .....penalty=elasticnet, solver=saga;, score=nan total time=   1.3s\n[CV 3/5] END .....penalty=elasticnet, solver=saga;, score=nan total time=   1.1s\n[CV 4/5] END .....penalty=elasticnet, solver=saga;, score=nan total time=   1.2s\n[CV 5/5] END .....penalty=elasticnet, solver=saga;, score=nan total time=   1.2s\n[CV 2/5] END ...........penalty=l2, solver=saga;, score=0.962 total time=  13.2s\n[CV 3/5] END ...........penalty=l2, solver=saga;, score=0.961 total time=  14.9s\n[CV 5/5] END ...........penalty=l2, solver=saga;, score=0.963 total time=  14.5s\n[CV 4/5] END ...........penalty=l2, solver=saga;, score=0.957 total time=  16.5s\n[CV 1/5] END ........penalty=none, solver=lbfgs;, score=0.986 total time=   9.3s\n[CV 2/5] END ........penalty=none, solver=lbfgs;, score=0.982 total time=  12.9s\n[CV 1/5] END ......penalty=none, solver=liblinear;, score=nan total time=   5.1s\n[CV 2/5] END ......penalty=none, solver=liblinear;, score=nan total time=   5.1s\n[CV 3/5] END ......penalty=none, solver=liblinear;, score=nan total time=   3.5s\n[CV 4/5] END ......penalty=none, solver=liblinear;, score=nan total time=   3.9s\n[CV 5/5] END ......penalty=none, solver=liblinear;, score=nan total time=   4.1s\n[CV 3/5] END ........penalty=none, solver=lbfgs;, score=0.980 total time=  12.4s\n[CV 4/5] END ........penalty=none, solver=lbfgs;, score=0.983 total time=  14.4s\n[CV 5/5] END ........penalty=none, solver=lbfgs;, score=0.981 total time=  14.5s\n"
+			}
+		]
+	},
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stderr",
+				"data": "/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_sag.py:352: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge\n  warnings.warn(\n"
+			}
+		]
+	},
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stdout",
+				"data": "[CV 1/5] END ...........penalty=l1, solver=saga;, score=0.966 total time= 1.4min\n"
+			}
+		]
+	},
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stderr",
+				"data": "/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_sag.py:352: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge\n  warnings.warn(\n/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_sag.py:352: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge\n  warnings.warn(\n/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_sag.py:352: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge\n  warnings.warn(\n"
+			}
+		]
+	},
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stdout",
+				"data": "[CV 2/5] END ...........penalty=l1, solver=saga;, score=0.970 total time= 1.5min\n[CV 3/5] END ...........penalty=l1, solver=saga;, score=0.967 total time= 1.5min\n"
+			}
+		]
+	},
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stderr",
+				"data": "/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_sag.py:352: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge\n  warnings.warn(\n"
+			}
+		]
+	},
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stdout",
+				"data": "[CV 4/5] END ...........penalty=l1, solver=saga;, score=0.951 total time= 1.5min\n[CV 5/5] END ...........penalty=l1, solver=saga;, score=0.951 total time= 1.5min\n[CV 3/5] END ....penalty=none, solver=newton-cg;, score=0.983 total time=  56.0s\n[CV 5/5] END ....penalty=none, solver=newton-cg;, score=0.980 total time=  56.1s\n[CV 4/5] END ....penalty=none, solver=newton-cg;, score=0.983 total time=  57.4s\n[CV 1/5] END ....penalty=none, solver=newton-cg;, score=0.981 total time=  58.3s\n[CV 2/5] END ....penalty=none, solver=newton-cg;, score=0.985 total time=  59.0s\n"
+			}
+		]
+	},
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stderr",
+				"data": "/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_sag.py:352: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge\n  warnings.warn(\n/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_sag.py:352: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge\n  warnings.warn(\n/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_sag.py:352: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge\n  warnings.warn(\n/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_sag.py:352: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge\n  warnings.warn(\n/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_sag.py:352: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge\n  warnings.warn(\n"
+			}
+		]
+	},
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stdout",
+				"data": "[CV 1/5] END ..........penalty=none, solver=sag;, score=0.981 total time=  48.9s\n[CV 5/5] END ..........penalty=none, solver=sag;, score=0.981 total time=  44.2s\n[CV 2/5] END ..........penalty=none, solver=sag;, score=0.984 total time=  48.2s\n[CV 3/5] END ..........penalty=none, solver=sag;, score=0.983 total time=  47.7s\n[CV 4/5] END ..........penalty=none, solver=sag;, score=0.982 total time=  48.5s\n"
+			}
+		]
+	},
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stderr",
+				"data": "/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_sag.py:352: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge\n  warnings.warn(\n"
+			}
+		]
+	},
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stdout",
+				"data": "[CV 1/5] END .........penalty=none, solver=saga;, score=0.980 total time=  49.0s\n"
+			}
+		]
+	},
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stderr",
+				"data": "/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_sag.py:352: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge\n  warnings.warn(\n"
+			}
+		]
+	},
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stdout",
+				"data": "[CV 2/5] END .........penalty=none, solver=saga;, score=0.984 total time=  40.2s\n"
+			}
+		]
+	},
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stderr",
+				"data": "/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_sag.py:352: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge\n  warnings.warn(\n"
+			}
+		]
+	},
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stdout",
+				"data": "[CV 5/5] END .........penalty=none, solver=saga;, score=0.978 total time=  38.6s\n"
+			}
+		]
+	},
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stderr",
+				"data": "/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_sag.py:352: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge\n  warnings.warn(\n/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_sag.py:352: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge\n  warnings.warn(\n"
+			}
+		]
+	},
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stdout",
+				"data": "[CV 3/5] END .........penalty=none, solver=saga;, score=0.983 total time=  40.7s\n[CV 4/5] END .........penalty=none, solver=saga;, score=0.981 total time=  39.2s\n"
+			}
+		]
+	},
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stderr",
+				"data": "/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/model_selection/_validation.py:372: FitFailedWarning: \n45 fits failed out of a total of 100.\nThe score on these train-test partitions for these parameters will be set to nan.\nIf these failures are not expected, you can try to debug them by setting error_score='raise'.\n\nBelow are more details about the failures:\n--------------------------------------------------------------------------------\n5 fits failed with the following error:\nTraceback (most recent call last):\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/model_selection/_validation.py\", line 681, in _fit_and_score\n    estimator.fit(X_train, y_train, **fit_params)\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_logistic.py\", line 1461, in fit\n    solver = _check_solver(self.solver, self.penalty, self.dual)\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_logistic.py\", line 447, in _check_solver\n    raise ValueError(\nValueError: Solver newton-cg supports only 'l2' or 'none' penalties, got l1 penalty.\n\n--------------------------------------------------------------------------------\n5 fits failed with the following error:\nTraceback (most recent call last):\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/model_selection/_validation.py\", line 681, in _fit_and_score\n    estimator.fit(X_train, y_train, **fit_params)\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_logistic.py\", line 1461, in fit\n    solver = _check_solver(self.solver, self.penalty, self.dual)\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_logistic.py\", line 447, in _check_solver\n    raise ValueError(\nValueError: Solver lbfgs supports only 'l2' or 'none' penalties, got l1 penalty.\n\n--------------------------------------------------------------------------------\n5 fits failed with the following error:\nTraceback (most recent call last):\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/model_selection/_validation.py\", line 681, in _fit_and_score\n    estimator.fit(X_train, y_train, **fit_params)\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_logistic.py\", line 1461, in fit\n    solver = _check_solver(self.solver, self.penalty, self.dual)\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_logistic.py\", line 447, in _check_solver\n    raise ValueError(\nValueError: Solver sag supports only 'l2' or 'none' penalties, got l1 penalty.\n\n--------------------------------------------------------------------------------\n5 fits failed with the following error:\nTraceback (most recent call last):\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/model_selection/_validation.py\", line 681, in _fit_and_score\n    estimator.fit(X_train, y_train, **fit_params)\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_logistic.py\", line 1461, in fit\n    solver = _check_solver(self.solver, self.penalty, self.dual)\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_logistic.py\", line 447, in _check_solver\n    raise ValueError(\nValueError: Solver newton-cg supports only 'l2' or 'none' penalties, got elasticnet penalty.\n\n--------------------------------------------------------------------------------\n5 fits failed with the following error:\nTraceback (most recent call last):\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/model_selection/_validation.py\", line 681, in _fit_and_score\n    estimator.fit(X_train, y_train, **fit_params)\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_logistic.py\", line 1461, in fit\n    solver = _check_solver(self.solver, self.penalty, self.dual)\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_logistic.py\", line 447, in _check_solver\n    raise ValueError(\nValueError: Solver lbfgs supports only 'l2' or 'none' penalties, got elasticnet penalty.\n\n--------------------------------------------------------------------------------\n5 fits failed with the following error:\nTraceback (most recent call last):\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/model_selection/_validation.py\", line 681, in _fit_and_score\n    estimator.fit(X_train, y_train, **fit_params)\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_logistic.py\", line 1461, in fit\n    solver = _check_solver(self.solver, self.penalty, self.dual)\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_logistic.py\", line 457, in _check_solver\n    raise ValueError(\nValueError: Only 'saga' solver supports elasticnet penalty, got solver=liblinear.\n\n--------------------------------------------------------------------------------\n5 fits failed with the following error:\nTraceback (most recent call last):\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/model_selection/_validation.py\", line 681, in _fit_and_score\n    estimator.fit(X_train, y_train, **fit_params)\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_logistic.py\", line 1461, in fit\n    solver = _check_solver(self.solver, self.penalty, self.dual)\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_logistic.py\", line 447, in _check_solver\n    raise ValueError(\nValueError: Solver sag supports only 'l2' or 'none' penalties, got elasticnet penalty.\n\n--------------------------------------------------------------------------------\n5 fits failed with the following error:\nTraceback (most recent call last):\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/model_selection/_validation.py\", line 681, in _fit_and_score\n    estimator.fit(X_train, y_train, **fit_params)\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_logistic.py\", line 1471, in fit\n    raise ValueError(\nValueError: l1_ratio must be between 0 and 1; got (l1_ratio=None)\n\n--------------------------------------------------------------------------------\n5 fits failed with the following error:\nTraceback (most recent call last):\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/model_selection/_validation.py\", line 681, in _fit_and_score\n    estimator.fit(X_train, y_train, **fit_params)\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_logistic.py\", line 1461, in fit\n    solver = _check_solver(self.solver, self.penalty, self.dual)\n  File \"/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/linear_model/_logistic.py\", line 464, in _check_solver\n    raise ValueError(\"penalty='none' is not supported for the liblinear solver\")\nValueError: penalty='none' is not supported for the liblinear solver\n\n  warnings.warn(some_fits_failed_message, FitFailedWarning)\n/home/arunscape/.local/share/virtualenvs/final_project-Td-GkHvP/lib/python3.9/site-packages/sklearn/model_selection/_search.py:969: UserWarning: One or more of the test scores are non-finite: [       nan        nan 0.96069382        nan 0.96069382 0.96105498\n 0.96105498 0.96141372 0.96105498 0.96105498        nan        nan\n        nan        nan        nan 0.98241186 0.98241154        nan\n 0.98223249 0.98133499]\n  warnings.warn(\n"
+			}
+		]
+	},
+	{
+		"metadata": {
+			"outputType": "stream"
+		},
+		"outputItems": [
+			{
+				"mimeType": "application/vnd.code.notebook.stdout",
+				"data": "best score 0.9824118636835706\nbest params {'penalty': 'none', 'solver': 'newton-cg'}\n"
+			}
+		]
+	}
+]
