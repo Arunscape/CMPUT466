@@ -8,11 +8,11 @@
 #+LATEX_CLASS_OPTIONS: [letterpaper]
 
 
-Formulating a task into a machine learning problem. The student CANNOT re-use any task in coding assignments (namely, house price and MNIST datasets) as the course project.
+# Formulating a task into a machine learning problem. The student CANNOT re-use any task in coding assignments (namely, house price and MNIST datasets) as the course project.
 
-Implementing a training-validation-test infrastructure, with a systematic way of hyperparameter tuning. The meaning of “training,” “validation,” “test,” and “hyperparameter” will be clear very soon.
+# Implementing a training-validation-test infrastructure, with a systematic way of hyperparameter tuning. The meaning of “training,” “validation,” “test,” and “hyperparameter” will be clear very soon.
 
-Comparing at least three machine learning algorithms. In addition, include a trivial baseline (if possible). For example, a majority guess for k-category classification yields 1/k accuracy. The machine learning algorithms must be reasonable for solving the task, and differ in some way (e.g., having different hyperparameters do not count as different machine learning algorithms).
+# Comparing at least three machine learning algorithms. In addition, include a trivial baseline (if possible). For example, a majority guess for k-category classification yields 1/k accuracy. The machine learning algorithms must be reasonable for solving the task, and differ in some way (e.g., having different hyperparameters do not count as different machine learning algorithms).
 
 * Introduction
 # A short introduction, describing the background of the task
@@ -48,6 +48,7 @@ the effect of common words like "the" appearing frequently.
 
 For all models, the defaults in scikit-learn were used as a baseline.
 A grid search was used to select the best combination of parameters.
+This was combined with 5-fold cross validation to validate the performance of the model.
 
 ** Linear Regression
 The linear regression classifier likely would not be useful, but the results might be interesting.
@@ -60,16 +61,16 @@ For logistic regression, the following hyperparameters were used as a baseline:
 - penalty: l2 (can also use none, l1, or elasticnet)
 - tolerance for stopping criteria: 1e-4
 *** Other Approaches:
-- I see no use in modifying the stopping criteria, so we will try changing the penalty used. These are the parameters which were tried out with an exhaustive grid search.
+20 different cominations of hyperparameters were chosen. These are the hyperparameters and the values tried out.
   #+begin_example
   params = {
     'solver': ('newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga'),
-    'params': ('l1', 'l2', 'elasticnet', 'none'),
+    'penalty': ('l1', 'l2', 'elasticnet', 'none'),
 }
   #+end_example
 
-** Naive Bayes
-For naive Bayes, no hyperparameters were tuned
+** Multinomial Naive Bayes
+For naive Bayes, no hyperparameters were tuned.
 
 ** Perceptron
 *** Baseline
@@ -78,10 +79,13 @@ For the perceptron, the following hyperparameters were used as a baseline:
 - max iterations: 1000
 - tolerance for stopping criteria: 1e-3
 *** Other Approaches
-+ l1 penalty
-+ l2 penalty
-+ elasticnet (l1+l2) penalty
-+ max iterations
+60 different cominations of hyperparameters were chosen. These are the hyperparameters and the values tried out.
+#+begin_example
+params = {
+    'penalty': ('l1', 'l2', 'elasticnet', 'none'),
+    'max_iter': (500, 1000, 2000)
+}
+#+end_example
 
 ** Multilayer Perceptron
 *** Baseline
@@ -90,22 +94,18 @@ For multilayer perceptron, the following hyperparameters were used as a baseline
 - hidden layer sizes: (100,)
 - solver: adam (can also use lbfgs, sgd)
 - learning rate: constant (can also use invscaling, adaptive)
+- learning rate: 0.001
 - max iterations: 200
 *** Other Approaches
-+ max iterations
-+ relu
-+ identity
-+ logistic
-+ tanh
-+ hidden layer size (100, 50, 25)
-+ hidden layer size (100, 80, 60, 40, 20, 10)
-+ hidden layer size (100, 50)
-+ learning rate invscaling
-+ learning rate adaptive
-+ max iterations 400
-+ max iterations 800
-+ max iterations 1600
-
+108 different cominations of hyperparameters were chosen. These are the hyperparameters and the values tried out.
+#+begin_example
+params = {
+    'activation': ('relu', 'identity', 'logistic', 'tanh'),
+    'hidden_layer_sizes': ((100), (100, 50, 25), (100, 80, 60, 40, 20, 10)),
+    'learning_rate': ('invscaling', 'adaptive', 'constant'),
+    'max_iter': (400, 800, 1600)
+}
+#+end_example
 * Evaluation metric
 # Evaluation metric (what is the measure of success, is it the real goal of the task, or an approximation? If it’s an approximation, why is it a reasonable approximation?)
 
@@ -117,4 +117,42 @@ To measure the effectiveness of the classifier selected, 5-fold cross-validation
 An average was taken of the five accuracy scores, and compared to the 0.8659368269921034 baseline. If the accuracy was higher than this threshold, it is considered useful for the task of detecting spam.
 
 * Results
-Results. (What is the result of the approaches? How is it compared with baselines? How do you interpret the results?)
+# Results. (What is the result of the approaches? How is it compared with baselines? How do you interpret the results?)
+
+** Linear Regression
+As predicted, the accuracy for linear regression was low. The trivial classifier marking everything as spam was better than linear regression.
+** Logistic Regression
+Out of the 20 possible combinations of hyperparameters selected, the best one was with no penalty and the newton-cg solver.
+The best mean score obtained was 0.9824118636835706.
+This seems like a pretty good result and beats the trivial classifier that marks everything as spam.
+It only took about 33.7 seconds to do training with 5-fold validation.
+** Multinomial Naive Bayes
+Using Multinomial Naive Bayes, a mean accuracy of 0.9587220133482541 was obtained.
+This seems like a pretty good result and beats the trivial classifier that marks everything as spam.
+It only took about 4.4 seconds to train and do 5-fold cross-validation.
+Even though the accuracy was worse than logistic regression, it was much faster to train.
+** Perceptron
+Out of the 12 possible combinations of hyperparameters selected, the best one was actually the baseline parameters:
+The best mean score obtained was 0.9807967088261103. This seems like a pretty good result and beats the trivial classifier that marks everything as spam. It only took about 2.6 seconds to do training with 5-fold validation. Even though this
+classifier is the fastest one to train, it has a really high accuracy.
+** Multilayer Perceptron
+Out of the 108 possible combinations of hyperparameters selected, the best one was with the relu activation function, hidden layer sizes of (100, 50, 25), 800 iterations and an adaptive learning rate.
+The adaptive learning rate
+keeps the learning rate constant as long as training loss keeps decreasing. Each time two consecutive epochs fail to decrease training loss, the current learning rate is divided by 5.
+The best mean score obtained was 0.9856415293331509.
+This seems like a pretty good result and beats the trivial classifier that marks everything as spam.
+It took about 1 minute to train with 5-fold cross-validation.
+This method took the longest time to train.
+This made the process of tuning hyperparameters with a grid search take a really long time.
+Although this method had the highest mean accuracy, the downside is that it took a long time to obtain this result.
+
+* Conclusion
+The model with the highest accuracy was unsurprisingly the multilayer perceptron with the relu activation function, hidden layer sizes of (100, 50, 25), 800 iterations and an adaptive learning rate.
+The mean accuracy with 5-fold cross validation was 0.9856415293331509.
+As predicted, linear regression was not useful for the task of identifying spam as it is not a suitable approach for this type of problem.
+A surprising result was that the perceptron which was the fastest model to train, also had a good mean accuracy of 0.9807967088261103.
+If the goal is to have quick training, but also decent accuracy, the perceptron has a nice balance for the goal of identifying spam in texts.
+If the goal is to have the best accuracy at the cost of long training time, the multilayer perceptron classifier is the best.
+Using machine learning techniques is a good way to automate the identification of spam in texts.
+It is a useful technology we already use every day when checking our emails. This report shows how easy it is to learn a classifier
+with pretty good accuracy.
